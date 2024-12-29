@@ -1,0 +1,8 @@
+\beamer@sectionintoc {1}{Review of mathematical statistics}{2}{0}{1}
+\beamer@sectionintoc {2}{Model estimation}{3}{0}{2}
+\beamer@subsectionintoc {2}{1}{Point and interval estimates}{4}{0}{2}
+\beamer@subsectionintoc {2}{2}{Normal distribution}{5}{0}{2}
+\beamer@subsectionintoc {2}{3}{Properties of an estimator}{6}{0}{2}
+\beamer@subsectionintoc {2}{4}{Illustrative example 1a}{7}{0}{2}
+\beamer@subsectionintoc {2}{5}{Mean-squared error}{8}{0}{2}
+\beamer@subsectionintoc {2}{6}{Illustrative example 1b}{9}{0}{2}

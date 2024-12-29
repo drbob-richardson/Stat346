@@ -1,0 +1,88 @@
+\documentclass{article}
+\usepackage{setspace,fullpage,xcolor}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsxtra}
+\usepackage{hyperref}
+\usepackage{tensor}
+\usepackage{dsfont}
+
+\begin{document}
+
+\begin{center}
+\textbf{Stat 346 Homework \#3}\\
+\vspace{0.3in}
+\end{center}
+\begin{enumerate}
+%\item
+%For a given policy, there are two types of policy holders. The loss amount of a policy holder from type one is exponentially distributed with a mean of 2. Type 2 losses are exponentially distributed with a mean of 5.
+%    \[X_1 \sim \textrm{EXP}(2) \qquad X_2 \sim \textrm{EXP}(5)\]
+%Also, assume that $S=X_1 + X_2$, the total loss from a portfolio of one policyholder of type 1 and one of type 2, and that $X_1$ and $X_2$ are independent.
+%    \begin{enumerate}
+%        \item Calculate $\textrm{TVaR}_{0.95}(X_1)$. \textcolor{red}{[7.99]}
+%        \item Calculate $\textrm{TVaR}_{0.95}(X_2)$. \textcolor{red}{[19.98]}
+%        \item Calculate $\textrm{TVaR}_{0.95}(S)$.   \textcolor{red}{[22.53]}
+%        \item Using the above results, what does that tell you about the subadditivity of $\textrm{TVaR}$ and the practical benefit of diversification?
+%        \item Further assume that 30\% of all policy holders are of type 1. \\What is the mean and variance of a loss from a randomly selected policyholder? \textcolor{red}{[4.1, 20.59]}
+%    \end{enumerate}
+\item
+For a commercial fire coverage
+	\begin{itemize}
+	\item In 2009, loss sizes follow a two-parameter Pareto distribution with parameters $\alpha$=4 and $\theta$.
+	\item In 2010, there is uniform inflation at rate $r$.
+	\item The 65th percentile of loss size in 2010 equals the mean loss size in 2009.
+	\end{itemize}
+Determine $r$. \textcolor{red}{[.1107]}
+\item
+$X$ follows a gamma distribution with parameters $\alpha$=3.5 and $\theta$=100.
+$Y=1/X$
+\\Evaluate Var($Y$) \textcolor{red}{[$\frac{1}{93750}$]}
+
+\item 
+$X$ follows an exponential distribution with mean 50.\\Determine the mean of $X^4$. \textcolor{red}{[150,000,000]}
+
+\item
+You are given the following:
+	\begin{itemize}
+	\item Losses in 1993 follow the density function
+	\[f(x) = 3x^{-4}, x\ge 1,\]
+	where x=losses in millions of dollars.
+	\item Inflation of 10\% impacts all claims uniformly from 1993 to 1994.
+	\end{itemize}
+Determine the probability that losses in 1994 exceed 2.2 million. \textcolor{red}{[.125]}
+
+\item
+Claim sizes in 2010 follow a lognormal distribution with parameters $\mu$=4.5 and $\sigma$=2. Claim sizes grow at 6\% uniform inflation during 2011 and 2012.\\Calculate $f$(1000), the probability density function at 1000, of the claim size distribution in 2012. \textcolor{red}{[.000103]}
+
+\item
+   Consider a random variable $Z$ with the following moments:
+   \begin{itemize}
+     \item $E(Z) = 4.5$
+     \item $E(Z^{0.5}) = 2$
+     \item $E(Z^2) = 30$
+   \end{itemize}
+   
+   Determine which distribution(s) from the following list best fit these moments:
+   \begin{itemize}
+     \item Lognormal distribution
+     \item Exponential distribution
+     \item Weibull distribution
+   \end{itemize}
+
+
+\item 
+   For each of the following probability density functions, determine how many (integer) moments exist for the random variable:
+
+   a. $f(x) \propto e^{-2x}, \quad x > 0$
+
+   b. $f(y) = \dfrac{k}{y^3}, \quad y > 1$
+
+   c. $f(z) \propto z^{-4} e^{-3/z}, \quad z > 0$
+
+\item 
+   Let $X$ be a random variable following a Weibull distribution with parameters $\tau$ and $\theta$. Prove that if you multiply $X$ by a positive constant $c$, i.e., $Y = cX$, then $Y$ follows a Weibull distribution with parameters $\tau$ and $c\theta$. Show the steps of your proof.
+\end{enumerate}
+
+
+\end{document} 

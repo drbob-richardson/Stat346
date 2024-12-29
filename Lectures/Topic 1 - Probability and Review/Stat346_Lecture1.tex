@@ -1,0 +1,842 @@
+\documentclass[compress,mathserif]{beamer}
+
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsxtra}
+\usepackage{hyperref}
+\usepackage{tensor}
+\usepackage{dsfont}
+
+\mode<presentation> {
+  \usetheme{default}
+  \useoutertheme{infolines}
+  \setbeamercovered{transparent}
+  %\beamertemplateballitem
+}
+
+\title[Review of Random Variables]{Random Variables and Basic Distributional Quantities}
+\author{Chapters 2 \& 3}
+\institute[Stat 346]{Stat 346 - Short-term Actuarial Math}
+\date[]{}
+\subject{Stat 477}
+
+\begin{document}
+
+\begin{frame}
+ \titlepage
+\end{frame}
+
+%\section{Introduction}
+%\frame{\frametitle{Introduction}
+%\begin{itemize}
+%\item Consider an experiment whose outcome is not known in advance.
+%\item \alert{Sample space} $\Omega$ is the set of all possible outcomes in the experiment.
+%\item A subset $E \subseteq \Omega$ of the sample space is called an \alert{event}.
+%\item Complement of an event $E$, denoted by $E^c$, is the set of all possible outcomes not in $E$.
+%\item Union of two events: $E_1 \cup E_2$ consists of all outcomes that are either in $E_1$ or in $E_2$ or in both.
+%\item Intersection of two events: $E_1 \cap E_2$ (often denoted by $E_1 E_2$) consists of all outcomes in both $E_1$ and $E_2$.
+%\item Mutually exclusive events: If $E_1 E_2 = \emptyset$, i.e. no outcomes in both $E_1$ and $E_2$ so that $E_1$ and $E_2$ cannot both occur, we say they are mutually exclusive events.
+%\item These definitions can naturally extend to more than a pair of events.
+%\end{itemize}
+%}
+
+\subsection{axioms}
+\frame{\frametitle{Probability Review}
+\begin{itemize}
+\item $\text{Pr}(E)$ will denote a number that is associated with the probability of the event $E$.
+\smallskip
+\item Three important axioms of probability:
+\smallskip
+\begin{enumerate}
+\item $0 \leq \text{Pr}(E) \leq 1$
+\smallskip
+\item $\text{Pr}(\Omega) = 1$ with $\Omega$, the sample space.
+\smallskip
+\item For any sequence of mutually exclusive events $E_1,E_2,\ldots$
+\begin{equation*}
+\text{Pr}\biggl(\bigcup_{i=1}^n E_i \biggr) = \sum_{i=1}^n \text{Pr}(E_i), \ \ \text{for} \ n=1,2,\ldots,\infty
+\end{equation*}
+\end{enumerate}
+\item Consequence: $\text{Pr}(E^c) = 1-\text{Pr}(E)$ for any event $E$.
+\end{itemize}
+}
+
+\subsection{conditional probability}
+\frame{\frametitle{Conditional probability}
+\begin{itemize}
+\item For any two events $E$ and $A$, we define
+\begin{equation*}
+\text{Pr}(E|A) = \frac{\text{Pr}(EA)}{\text{Pr}(A)}.
+\end{equation*}
+\item Because for any event $E$, we have $E = EA \cup EA^c$, then
+\begin{eqnarray*}
+\text{Pr}(E) &=& \text{Pr}(EA) + \text{Pr}(EA^c) \\
+&=& \text{Pr}(E|A) \times \text{Pr}(A) + \text{Pr}(E|A^c) \times \text{Pr}(A^c).
+\end{eqnarray*}
+\item Let $A_1, A_2, \ldots , A_n$ be $n$ mutually exclusive events whose union is the sample space $\Omega$. Then we have the \alert{Law of Total Probability}:
+\begin{equation*}
+\text{Pr}(E) = \sum_{i=1}^{n} \text{Pr}(EA_i) = \sum_{i=1}^n \text{Pr}(E|A_i) \times \text{Pr}(A_i).
+\end{equation*}
+\end{itemize}
+}
+
+\frame{\frametitle{Example: Law of Total Probability}
+\begin{itemize}
+    \item Consider a medical test for a particular disease in a population where:
+    \begin{itemize}
+        \item 1\% of people have the disease (\(\text{Pr}(D) = 0.01\)).
+        \item The test has a 99\% sensitivity (\(\text{Pr}(T|D) = 0.99\)) and a 95\% specificity (\(\text{Pr}(T^c|D^c) = 0.95\)).
+    \end{itemize}
+    \item \textbf{Question:} What is the probability that a randomly selected individual from the population tests positive for the disease?
+    \item Here, we will use the Law of Total Probability to find \(\text{Pr}(T)\), the probability of testing positive.
+\end{itemize}
+}
+
+\frame{\frametitle{Solution: Using the Law of Total Probability}
+\begin{itemize}
+    \item Given:
+    \begin{itemize}
+        \item \(\text{Pr}(D) = 0.01\) and \(\text{Pr}(D^c) = 0.99\).
+        \item \(\text{Pr}(T|D) = 0.99\) and \(\text{Pr}(T|D^c) = 0.05\).
+    \end{itemize}
+    \item The Law of Total Probability states:
+    \[
+    \text{Pr}(T) = \text{Pr}(T|D)\text{Pr}(D) + \text{Pr}(T|D^c)\text{Pr}(D^c)
+    \]
+    \item Plugging in the values:
+    \[
+    \text{Pr}(T) = (0.99)(0.01) + (0.05)(0.99)
+    \]
+    \item Calculating the probability:
+    \[
+    \text{Pr}(T) \approx 0.0594
+    \]
+    \item Thus, the probability that a randomly selected individual tests positive is approximately 5.94\%.
+\end{itemize}
+}
+
+
+
+\subsection{independence}
+\frame{\frametitle{Independence}
+\begin{itemize}
+\item Two events $E_1$ and $E_2$ are said to be \alert{independent} if
+\begin{equation*}
+\text{Pr}(E_1|E_2) = \text{Pr}(E_1).
+\end{equation*}
+\item As a consequence, we have $E_1$ and $E_2$ are two independent events if
+\begin{equation*}
+\text{Pr}(E_1 E_2) = \text{Pr}(E_1) \times \text{Pr}(E_2).
+\end{equation*}
+\end{itemize}
+}
+
+\frame{\frametitle{Determining Independence and Mutual Exclusivity}
+\begin{itemize}
+    \item Consider the following pairs of events \(A\) and \(B\). Determine if they are independent, mutually exclusive, both, or neither.
+    \begin{enumerate}
+        \item \(A\): A six-sided die shows an even number. \\ 
+              \(B\): The same die shows a number greater than 4.
+        \item \(A\): It rains on a given day. \\ 
+              \(B\): An outdoor concert scheduled for that day is canceled.
+        \item \(A\): A randomly chosen adult male is over 6 feet tall. \\ 
+              \(B\): The same adult male has blue eyes.
+        \item \(A\): A computer part is defective. \\ 
+              \(B\): The computer part is from a batch with known issues.
+        \item \(A\): Two cards drawn from a deck are both aces. \\ 
+              \(B\): The first card drawn is an ace.
+    \end{enumerate}
+    \item Remember:
+    \begin{itemize}
+        \item Events \(A\) and \(B\) are \textbf{independent} if \(\text{Pr}(A \cap B) = \text{Pr}(A)\text{Pr}(B)\).
+        \item Events \(A\) and \(B\) are \textbf{mutually exclusive} if \(\text{Pr}(A \cap B) = 0\); they cannot both occur at the same time.
+    \end{itemize}
+\end{itemize}
+}
+
+
+\section{Random variables}
+\frame{\frametitle{Random variables}
+\begin{itemize}
+\item A \alert{random variable} will be denoted by capital letters: $X$.
+\item It is a mapping from the sample space to the set of real numbers: $X: \Omega \rightarrow \mathbb{R}$. The set of all possible values $X$ takes is called the \alert{support} of the random variable (or its distribution).
+\item $X$ is a \alert{discrete} random variable if it takes either a finite or at most countable number of possible values. Otherwise, it is \alert{continuous}. A combination of discrete and continuous would be \alert{mixed}.
+\item Cumulative distribution function (cdf): $F(x) = F_X(x) = \text{Pr}(X \leq x)$.
+\item Survival distribution function (sdf): $S(x) = S_X(x) = \text{Pr}(X > x)$.
+\item Discrete: probability mass function (pmf) $p(x) = p_X(x) = \text{Pr}(X=x)$.
+\item Continuous: probability density function (pdf) $f(x) = f_X(x) = \dfrac{dF(x)}{dx}$.
+\end{itemize}
+}
+
+\frame{\frametitle{Example: Exponential Distribution}
+\begin{itemize}
+    \item The exponential distribution is often used to model the time until an event occurs, such as the time until a machine fails.
+    \item It is defined by its rate parameter \(\lambda > 0\).
+    \item The probability density function (pdf) is given by:
+    \[
+    f(x) = \begin{cases} 
+    \lambda e^{-\lambda x} & x \geq 0 \\
+    0 & x < 0 
+    \end{cases}
+    \]
+    \item The survival function, which gives the probability that the time until the event exceeds \(x\), is:
+    \[
+    S(x) = P(X > x) = 1 - F(x) = e^{-\lambda x}
+    \]
+    \item \textbf{Example:} Suppose the time until a light bulb fails is exponentially distributed with a mean lifetime of 1000 hours (\(\lambda = \frac{1}{1000}\)).
+    \begin{enumerate}
+        \item Calculate the pdf for this distribution.
+        \item Find the probability that a bulb lasts more than 1500 hours.
+    \end{enumerate}
+\end{itemize}
+}
+
+\frame{\frametitle{Solution: Exponential Distribution}
+\begin{itemize}
+    \item Given \(\lambda = \frac{1}{1000}\), the pdf of the light bulb's lifetime \(X\) is:
+    \[
+    f(x) = \begin{cases} 
+    \frac{1}{1000} e^{-x/1000} & x \geq 0 \\
+    0 & x < 0 
+    \end{cases}
+    \]
+    \item To find the probability that a bulb lasts more than 1500 hours, use the survival function:
+    \[
+    S(1500) = e^{-\frac{1500}{1000}} \approx e^{-1.5}
+    \]
+    \item This gives the probability that a randomly selected light bulb will last longer than 1500 hours.
+\end{itemize}
+}
+
+
+\frame{\frametitle{Examples of random variables encountered in actuarial work}
+\begin{itemize}
+\item age-at-death from birth
+\smallskip
+\item time-until-death from insurance policy issue.
+\smallskip
+\item the number of times an insured automobile makes a claim in a one-year period.
+\smallskip
+\item the amount of the claim of an insured automobile, given a claim is made (or an accident occurs).
+\smallskip
+\item the value of a specific asset of a company at some future date.
+\smallskip
+\item the total amount of claims in an insurance portfolio.
+\end{itemize}
+}
+
+\subsection{distribution function}
+\frame{\frametitle{Properties of distribution functions}
+The distribution function must satisfy a number of requirements:
+\begin{itemize}
+\item $0 \leq F(x) \leq 1$ for all $x$.
+\item $F(x)$ is non-decreasing.
+\item $F(x)$ is right-continous, that is, $\lim_{x\rightarrow a^+} = F(a)$.
+\item $F(-\infty) = 0$ and $F(+\infty) = 1$.
+\end{itemize}
+\smallskip
+Some things to note:
+\begin{itemize}
+\item For continuous random variables, $F(x)$ is also left-continuous.
+\item For discrete random variables, $F(x)$ forms a step function.
+\item For a mixed random variable, $F(x)$ forms a combination with jumps and when it does, the value is assigned to the top of the jump.
+\item Because $S(x) = 1-F(x)$, one should be able to deduce properties of a survival function. See page 14 of Klugman, et al.
+\end{itemize}
+}
+
+%\subsection{multivariate}
+%\frame{\frametitle{Multivariate random variables}
+%\begin{itemize}
+%\item Sometimes called random vectors. Notation: $(X,Y)$.
+%\smallskip
+%\item Joint cdf: $F(x,y) = \text{Pr}(X \leq x, Y \leq y)$.
+%\smallskip
+%\item Joint sdf: $S(x,y) = \text{Pr}(X > x, Y > y)$.
+%\smallskip
+%\item Discrete pmf: $p(x,y) = \text{Pr}(X=x, Y=y)$.
+%\smallskip
+%\item Continuous pdf: $f(x,y) = \dfrac{\partial^2 F(x,y)}{\partial x \partial y}$.
+%\smallskip
+%\item For any set of real numbers $C$ and $D$, we have
+%\begin{equation*}
+%P(X \in C, Y \in D) = \iint_{x \in C,y \in D} f(x,y) dxdy.
+%\end{equation*}
+%\end{itemize}
+%}
+
+\subsection{independence}
+\frame{\frametitle{Independent random variables}
+\begin{itemize}
+\item $X$ and $Y$ are said to be independent if
+\begin{equation*}
+\text{Pr}(X \in C, Y \in D) = \text{Pr}(X \in C) \times \text{Pr}(Y \in D).
+\end{equation*}
+\item Also, we have
+\begin{equation*}
+\text{Pr}(X=x, Y=y) = \text{Pr}(X=x) \times \text{Pr}(Y=y)
+\end{equation*}
+and
+\begin{equation*}
+f(x,y) = f_X(x)  \times f_Y(y)
+\end{equation*}
+for two independent random variables $X$ and $Y$.
+\smallskip
+\item Note also that if $X$ and $Y$ are independent and so will $G(X)$ and $H(Y)$.
+\end{itemize}
+}
+
+%\subsection{hazard function}
+%\frame{\frametitle{Hazard function}
+%The \alert{hazard function} is defined to be the ratio of the density and the survival functions:
+%\begin{equation*}
+%h(x) = h_X(x) = \dfrac{f(x)}{S(x)} = \dfrac{f(x)}{1-F(x)}.%
+%\end{equation*}
+%\smallskip
+%It can also be shown that
+%\begin{equation*}
+%h(x) = - \dfrac{S'(x)}{S(x)} = - \dfrac{d \log S(x)}{dx}.
+%\end{equation*}
+%\smallskip
+%The following relationship immediately follows:
+%\begin{equation*}
+%S(x) = \exp \biggl(- \int_0^x h(x) dx \biggr).
+%\end{equation*}
+%}
+
+\subsection{expectation}
+\frame{\frametitle{Expectation}
+\begin{itemize}
+\item Discrete: $\text{E}[g(X)] = \sum_x g(x) p(x)$
+\smallskip
+\item Continuous: $\text{E}[g(X)] = \int_{-\infty}^{\infty} g(x) f(x)dx$
+\smallskip
+\item Linearity of expectation: $\text{E}(aX+b) = a \text{E}(X) + b$
+\smallskip
+\item Special cases:
+\smallskip
+\begin{itemize}
+\item \alert{mean} of $X$:  $\mu_X = \mu = \text{E}(X)$
+\smallskip
+\item \alert{variance} of $X$: $\text{Var}(X) = \sigma_X^2 = \sigma^2 = \text{E}[(X-\mu_X)^2]$.
+\smallskip
+\item \alert{standard deviation} of $X$: $\text{SD}(X) = \sigma_X = \sigma =  \sqrt{\text{Var}(X)}$.
+\smallskip
+\item One can show that the variance can also be expressed as $\text{Var}(X) = \text{E}(X^2) - [\text{E}(X)]^2$.
+\smallskip
+\item The \alert{$k$-th moment} of $X$: $\mu'_k = \text{E}(X^k)$.
+\smallskip
+\item The \alert{$k$-th central moment} of $X$: $\mu_k = \text{E}[(X-\mu)^k]$.
+\end{itemize}
+\smallskip
+\item The \alert{2nd central moment} is equal to the variance.
+\end{itemize}
+}
+
+%\frame{\frametitle{Expectation - the multivariate case}
+%\begin{itemize}
+%\item Discrete: $\text{E}[g(X,Y)] = \sum_x \sum_y g(x,y) p(x,y)$
+%\smallskip
+%\item Continuous: $\text{E}[g(X,Y)] = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} g(x,y) f(x,y)dxdy$
+%\smallskip
+%\item \alert{Covariance} of $X$ and $Y$: $\text{Cov}(X,Y) = \text{E} [(X-\mu_X)(Y-\mu_Y)]$. One can show that you can also write this as $\text{Cov}(X,Y) = \text{E} (XY) - \text{E}(X) \text{E}(Y)$.
+%\smallskip
+%\item Important property:
+%\begin{equation*}
+%\text{Var}(X+Y) = \text{Var}(X) + \text{Var}(Y) + 2 \text{Cov}(X,Y)
+%\end{equation*}
+%\item If $X$ and $Y$ are independent, then $\text{Cov}(X,Y) = 0$ so that $\text{Var}(X+Y) = \text{Var}(X) + \text{Var}(Y)$.
+%\begin{itemize}
+%\item Note the converse is NOT always true: if $\text{Cov}(X,Y) = 0$, then $X$ and $Y$ are not necessarily independent.
+%\end{itemize}
+%\smallskip
+%\item \alert{Correlation} between $X$ and $Y$:
+%\begin{equation*}
+%\text{Corr}(X,Y) = \frac{\text{Cov}(X,Y)}{\sqrt{\text{Var}(X) \text{Var}(Y)}}
+%\end{equation*}
+%\end{itemize}
+%}
+
+\subsection{other important quantities}
+\frame{\frametitle{Other important summary quantities}
+\begin{itemize}
+\item \alert{Mode} of a random variable: the most likely value.
+\begin{itemize}
+\item discrete: the value that gives the largest probability
+\item continuous: the value for which the density is largest
+\end{itemize}
+\smallskip
+\item \alert{coefficient of variation}: $\text{CV}(X) = \dfrac{\text{SD}(X)}{\mu_X} = \dfrac{\sigma}{\mu}$
+\begin{itemize}
+\item dimensionless
+\item useful for comparing data with different units, or with widely different means.
+\end{itemize}
+\smallskip
+\item \alert{skewness}: $\gamma_1 = \dfrac{\mu_3}{\sigma^3}$
+\begin{itemize}
+\item for symmetric distributions, $\gamma_1 = 0$
+\item a measure of departure from symmetry
+\end{itemize}
+\smallskip
+\item \alert{kurtosis}: $\gamma_2 = \dfrac{\mu_4}{\sigma^4}$
+\begin{itemize}
+\item for a Normal distribution, $\gamma_2 = 3$
+\item measures ``flatness'' or ``peakedness'' of the distribution
+\end{itemize}
+\end{itemize}
+}
+
+\subsection{quantiles}
+\frame{\frametitle{Quantiles}
+\begin{itemize}
+\item \alert{quantile} (sometimes called percentile) function: the inverse of the cumulative distribution function.
+\item The 100$p$-th percentile, for $0 \leq p \leq 1$, of a distribution is any value $\pi_p$ satisfying:
+\begin{equation*}
+F(\pi_p -) \leq p \leq F(\pi_p).
+\end{equation*}
+\begin{itemize}
+\item the 50-th percentile, $\pi_{0.5}$, is the \alert{median} of the distribution.
+\end{itemize}
+\item The percentile value is not necessarily unique, unless the random variable is continuous, in which case, it is the solution to:
+\begin{equation*}
+F(\pi_p) = p \ \ \text{or} \ \ \pi_p = F^{-1}(p).
+\end{equation*}
+\item In the case it is either discrete or mixed, it is taken to be the smallest such possible value:
+\begin{equation*}
+\pi_p = F^{-1}(p) = \inf \{x \in \mathbb{R} \mid F(x) \geq p \}.
+\end{equation*}
+\end{itemize}
+}
+
+\frame{\frametitle{Example: Quantiles of an Exponential Distribution}
+\begin{itemize}
+    \item Recall the exponential distribution with rate parameter \(\lambda\), where the pdf is \(f(x) = \lambda e^{-\lambda x}\) for \(x \geq 0\).
+    \item The cumulative distribution function (CDF) is \(F(x) = 1 - e^{-\lambda x}\).
+    \item The \(p\)-th quantile (\(0 < p < 1\)) of a distribution is the value \(x_p\) such that \(F(x_p) = p\).
+    \item \textbf{Example:} For an exponential distribution with a mean lifetime of 1000 hours (\(\lambda = \frac{1}{1000}\)), find the 75th percentile.
+    \begin{itemize}
+        \item This means we want to find \(x_{0.75}\) such that \(P(X \leq x_{0.75}) = 0.75\).
+    \end{itemize}
+\end{itemize}
+}
+
+\frame{\frametitle{Solution: Quantiles of an Exponential Distribution}
+\begin{itemize}
+    \item Start with the CDF for the exponential distribution:
+    \[
+    F(x) = 1 - e^{-\frac{1}{1000}x}
+    \]
+    \item Set \(F(x_{0.75}) = 0.75\) and solve for \(x_{0.75}\):
+    \[
+    0.75 = 1 - e^{-\frac{1}{1000}x_{0.75}}
+    \]
+    \item Rearrange and solve for \(x_{0.75}\):
+    \[
+    e^{-\frac{1}{1000}x_{0.75}} = 0.25 \implies x_{0.75} = -1000 \ln(0.25)
+    \]
+    \item Calculate \(x_{0.75}\) to find the 75th percentile of the distribution.
+    \item This value represents the time by which 75\% of the light bulbs are expected to have failed.
+\end{itemize}
+}
+
+
+
+%\subsection{generating functions}
+%\frame{\frametitle{Generating functions}
+%\begin{itemize}
+%\item The \alert{moment generating function} (mgf) of $X$: $M_X(t) = \text{E}(e^{Xt})$
+%for all $t$ this exists.
+%\item The \alert{probability generating function} (pgf) of $X$: $P_X(z) = \text{E}(z^{X})$
+%for all $z$ this exists.
+%\item Note: $M_X(t) = P_X(e^t)$ and $P_X(z) = M_X(\log(z))$.
+%\item The mgf generates moments:
+%\begin{equation*}
+%M_X(t) = \sum_{k=0}^{\infty} \frac{1}{k!} \text{E}(X^k) t^k
+%\end{equation*}
+%so that $\text{E}(X^k) = \left(\frac{d}{dt}\right)^kM_X(t)|_{t=0}$.
+%\item The pgf is generally used for discrete:
+%\begin{equation*}
+%P_X(z) = \sum_{k=0}^{\infty} z^k \text{Pr}(X=k).
+%\end{equation*}
+%\end{itemize}
+%}
+%
+%\subsection{empirical model}
+%\frame{\frametitle{Empirical model}
+%\begin{itemize}
+%\item The \alert{empirical model} to a dataset of sample size $n$ is the discrete distribution that assigns equal probabilities of $1/n$ to each data point.
+%\smallskip
+%\item If $x_1,\ldots,x_n$ are the data points, then
+%\begin{equation*}
+%\text{Pr}(X = x_i) = \dfrac{1}{n}, \ \ \text{for} \ \ i=1,\ldots,n.
+%\end{equation*}
+%\item The empirical cumulative distribution function (ecdf) is defined to be
+%\begin{equation*}
+%F_n(x_{(i)}) = \text{Pr}(X \leq x_{(i)}) = \dfrac{i}{n}, \ \ \text{for} \ \ i=1,\ldots,n,
+%\end{equation*}
+%where $x_{(1)},\ldots,x_{(n)}$ are the values of the data in ascending order.
+%\smallskip
+%\item See example on top of page 23.
+%\end{itemize}
+%}
+
+\section{Excess loss random variable}
+\frame{\frametitle{Excess loss random variable}
+The \alert{excess loss random variable} is defined to be $Y^P = X-d$, given $X>d$.
+Its $k$-th moment can be determined from
+\begin{eqnarray*}
+e_X^k(d) = \text{E}[(X-d)^k \mid X>d] &=& \dfrac{\int_d^\infty (x-d)^k f(x) dx}{1-F(d)}, \ \ \text{continuous} \\
+&=& \dfrac{\sum_{x_j>d} (x_j-d)^k p(x_j)}{1-F(d)}, \ \ \text{discrete}
+\end{eqnarray*}
+When $k=1$, the expected value
+\begin{equation*}
+e_X(d) = \text{E}(X-d \mid X>d)
+\end{equation*}
+is called the \alert{mean excess loss function}.
+Other names used have been \alert{mean residual life function} and \alert{complete expectation of life}.
+Using integration by parts, it can be shown:
+\begin{equation*}
+e_X(d) = \dfrac{\int_d^\infty S(x) dx}{S(d)}
+\end{equation*}
+}
+
+\frame{\frametitle{Example: Excess Loss with Uniform Distribution}
+\begin{itemize}
+    \item Consider a policy with losses following a Uniform(0,1000) distribution.
+    \item The policy has a deductible of 100, meaning the insurance will only pay for the part of the loss that exceeds 100.
+    \item The excess loss random variable \(Y^P\) is defined as \(Y^P = X - d\) given \(X > d\), where \(d\) is the deductible.
+    \item \textbf{Question:} What is the expected excess loss for a claim when the deductible is \(d = 100\)?
+    \item We will calculate \(e_X(d) = \text{E}[X - d | X > d]\) for a Uniform(0,1000) distribution.
+\end{itemize}
+}
+
+\frame{\frametitle{Solution: Excess Loss with Uniform Distribution}
+\begin{itemize}
+    \item The pdf of a Uniform(0,1000) distribution is \(f(x) = \frac{1}{1000}\) for \(0 \leq x \leq 1000\).
+    \item The excess loss random variable for a deductible of 100 is \(Y^P = X - 100\) given \(X > 100\).
+    \item The expected excess loss is:
+    \[
+    e_X(100) = \frac{\int_{100}^{1000} (x-100) \cdot \frac{1}{1000} dx}{1 - F(100)}
+    \]
+    where \(F(100)\) is the CDF of the Uniform distribution at \(x=100\).
+    \item Calculate \(e_X(100)\) to find the expected payment by the insurance for a claim.
+\end{itemize}
+}
+
+\frame{\frametitle{Exponential Distribution as a Special Case}
+\begin{itemize}
+    \item The exponential distribution is a special case in the context of excess loss due to its \textbf{memoryless property}.
+    \item A random variable \(X\) is said to have the memoryless property if, for any \(s, t \geq 0\), \(P(X > s+t | X > s) = P(X > t)\).
+    \item In other words, the future life expectancy of the process does not depend on how much time has already elapsed.
+    \item For an exponential distribution with rate \(\lambda\), the memoryless property simplifies the calculation of mean excess loss function.
+    \item \textbf{Implication:} The mean excess loss function does not depend on the deductible \(d\); it's always the mean of the original distribution.
+\end{itemize}
+}
+
+
+\section{Left censored and shifted variable}
+\frame{\frametitle{Left censored and shifted random variable}
+The \alert{left censored and shifted random variable} is defined to be
+\begin{equation*}
+Y^L = (X-d)_+ = \left\{
+\begin{array}{ll}
+0, & X\leq d, \\
+X-d, & X>d.
+\end{array}
+\right.
+\end{equation*}
+Its $k$-th moment can be calculated from
+\begin{eqnarray*}
+\text{E}[(X-d)_+^k] &=& \int_d^\infty (x-d)^k f(x) dx, \ \ \text{continuous} \\
+&=& \sum_{x_j>d} (x_j-d)^k p(x_j), \ \ \text{discrete}
+\end{eqnarray*}
+Clearly, we have
+\begin{equation*}
+\text{E}[(X-d)_+^k] = e_X^k(d) [1-F(d)]
+\end{equation*}
+Note: for dollar events, the distinction between $Y^P$ and $Y^L$ is one of \textit{per payment} versus \textit{per loss}. See Figure 3.3 on page 26.
+When $k=1$, the expected value is sometimes called the \alert{stop loss premium}:
+\begin{equation*}
+\text{E}[(X-d)_+] = \int_d^\infty S(x) dx.
+\end{equation*}
+}
+
+\frame{\frametitle{Example: Left Censored and Shifted Random Variable}
+\begin{itemize}
+    \item Consider losses following a Uniform(0,1000) distribution and a deductible \(d = 100\).
+    \item The left censored and shifted random variable \(Y^L\) is defined as \(Y^L = (X-d)_+\).
+    \item \(Y^L\) represents the payment made by the insurance after the deductible is applied.
+    \item \textbf{Question:} What is the expected payment for a claim when the deductible is \(d = 100\)?
+    \item We will calculate \(\text{E}[(X-d)_+]\) for a Uniform(0,1000) distribution.
+\end{itemize}
+}
+
+\frame{\frametitle{Solution: Left Censored and Shifted Random Variable}
+\begin{itemize}
+    \item The pdf of a Uniform(0,1000) distribution is \(f(x) = \frac{1}{1000}\) for \(0 \leq x \leq 1000\).
+    \item The expected payment (after deductible) is:
+    \[
+    \text{E}[(X-100)_+] = \int_{100}^{1000} (x-100) \cdot \frac{1}{1000} dx
+    \]
+    \item Calculate \(\text{E}[(X-100)_+]\) to find the average payment by the insurance for a claim after applying the deductible.
+\end{itemize}
+}
+
+
+
+\section{Limited loss variable}
+\frame{\frametitle{Limited loss random variable}
+The \alert{limited loss random variable} is defined to be
+\begin{equation*}
+Y = X \wedge u = \left\{
+\begin{array}{ll}
+X, & X < u, \\
+u, & X \geq u.
+\end{array}
+\right.
+\end{equation*}
+It is sometimes called the \alert{right censored variable}. Its $k$-th moment is
+\begin{eqnarray*}
+\text{E}[(X \wedge u)^k] &=& \int_{-\infty}^u x^k f(x) dx + u^k[1-F(u)], \ \ \text{continuous} \\
+&=& \sum_{x_j \leq u} x_j^k p(x_j) + u^k[1-F(u)], \ \ \text{discrete}
+\end{eqnarray*}
+With integration by parts, it can be shown that
+\begin{equation*}
+\text{E}[(X \wedge u)^k] = - \int_{-\infty}^0 k x^{k-1} F(x) dx + \int_0^{\infty} kx^{k-1} S(x) dx.
+\end{equation*}
+Check the case when $k=1$. Note the following important relationship:
+\begin{equation*}
+X = (X-d)_+ + (X \wedge d).
+\end{equation*}
+}
+
+\frame{\frametitle{Example: Limited Loss Random Variable}
+\begin{itemize}
+    \item Again consider losses following a Uniform(0,1000) distribution and an upper limit \(u = 100\).
+    \item The limited loss random variable \(Y\) is defined as \(Y = X \wedge u\).
+    \item \(Y\) represents the payment made by the insurance with the policy having an upper limit.
+    \item \textbf{Question:} What is the expected payment for a claim when the upper limit is \(u = 100\)?
+    \item We will calculate \(\text{E}[X \wedge 100]\) for a Uniform(0,1000) distribution.
+\end{itemize}
+}
+
+\frame{\frametitle{Solution: Limited Loss Random Variable}
+\begin{itemize}
+    \item The pdf of a Uniform(0,1000) distribution is \(f(x) = \frac{1}{1000}\) for \(0 \leq x \leq 1000\).
+    \item The expected payment (with an upper limit) is:
+    \[
+    \text{E}[X \wedge 100] = \int_{0}^{100} x \cdot \frac{1}{1000} dx + 100 \cdot \left(1 - \frac{100}{1000}\right)
+    \]
+    \item Calculate \(\text{E}[X \wedge 100]\) to find the average payment by the insurance for a claim considering the upper limit.
+\end{itemize}
+}
+
+
+%\section{Sums of random variables}
+%\frame{\frametitle{Sums of random variables}
+%\begin{itemize}
+%\item Sometimes referred to as \alert{convolutions}. Begin with $k$ random variables $X_1,\ldots,X_k$. Its convolution is the sum
+%\begin{equation*}
+%S_k = X_1 + \cdots + X_k.
+%\end{equation*}
+%\item One can view the random variables $X_i$, for $i=1,\ldots,k$ as payment on policy $i$, so that the sum $S_k$ refers to the aggregate, or total, payment.
+%\item To derive distribution of sums, the assumption of independence of the $X_i$'s is typically made. Then, use the mgf (or pgf) technique:
+%\begin{equation*}
+%M_{S_k}(t) = \prod_{j=1}^k M_{X_j}(t)
+%\end{equation*}
+%or
+%\begin{equation*}
+%P_{S_k}(z) = \prod_{j=1}^k P_{X_j}(z).
+%\end{equation*}
+%\end{itemize}
+%}
+
+%\subsection{approximating sums}
+%\frame{\frametitle{Approximating the distribution of sums of random variables}
+%\begin{itemize}
+%\item For approximation purposes, under certain conditions of the first two moments, we have
+%\begin{equation*}
+%\lim_{k \rightarrow \infty} \frac{S_k - \text{E}(S_k)}{\sqrt{\text{Var}(S_k)}} \sim N(0,1).
+%\end{equation*}
+%\item This is referred to as the \alert{Central Limit Theorem}.
+%\end{itemize}
+%}
+
+%\subsection{illustrations}
+%\frame{\frametitle{Illustrative examples}
+%\begin{itemize}
+%\item Show that the sum of independent gamma with the same scale, $\theta$, parameter is another gamma distribution.
+%\smallskip
+%\item Show that the sum of independent Poisson is another Poisson.
+%\smallskip
+%\item Derive the \alert{generalized Erlang distribution}: If $X_i$ has an exponential distribution with mean parameter $1/\mu_i$, for $i=1,\ldots,n$, no two of which have the same mean, then its sum $S_n$ has this distribution.
+%\smallskip
+%\item All these results to be discussed in lecture.
+%\end{itemize}
+%}
+%
+%\section{Tails of distributions}
+%\frame{\frametitle{Heavy-tailed distributions}
+%\begin{itemize}
+%\item The \alert{(right) tail} of a distribution is that part of the distribution corresponding to large values of the random variable. The survival probability $\text{Pr}(X>x)$ is sometimes referred to as the \alert{tail probability}.
+%\smallskip
+%\item Random variables that tend to have higher tail probabilities are said to be heavier-tailed.
+%\smallskip
+%\item However, there are other ways of classifying heavy-tailed distributions:
+%\begin{itemize}
+%\item Based on moments: Example 3.8
+%\item Based on limiting tail behavior: Section 3.4.2 and Example 3.9
+%\item Based on the hazard function: Section 3.4.3 and Example 3.10
+%\item Based on the mean excess loss function: Section 3.4.4 and Example 3.11
+%\end{itemize}
+%\smallskip
+%\item Details in lecture.
+%\smallskip
+%\item In general, the gamma/exponential is considered `light-tailed';  the lognormal `medium-tailed'; and the Pareto `heavy-tailed'.
+%\end{itemize}
+%}
+%
+%\subsection{equilibrium distributions}
+%\frame{\frametitle{Equilibrium distributions and tail behavior}
+%Consider a positive random variable $X$ with $S(0)=1$. The \alert{equilibrium distribution} is defined to be one whose pdf is given by
+%\begin{equation*}
+%f_e(x) = \frac{S(x)}{\text{E}(X)} = \frac{S(x)}{\int_0^{\infty}S(x) dx}, \ \ \text{for} \ \ x \geq 0.
+%\end{equation*}
+%We have:
+%\begin{itemize}
+%\item survival function: $S_e(x) = \int_x^{\infty} f_e(t) dt = \frac{\int_x^{\infty} S_e(t) dt}{\text{E}(X)}$
+%\smallskip
+%\item hazard rate function: $h_e(x) = \frac{f_e(x)}{S_e(x)} = \frac{1}{e(x)}$
+%\smallskip
+%\item equilibrium mean: $\int_0^{\infty} S_e(x) dx = \frac{\text{E}(X^2)}{2\text{E}(X)}$
+%\end{itemize}
+%It can be shown that:
+%\begin{equation*}
+%\frac{e(x)}{e(0)} = \frac{S_e(x)}{S(x)}.
+%\end{equation*}
+%This implies that:
+%\begin{itemize}
+%\item If the mean residual life function is increasing, equivalently the hazard rate is decreasing, then $\text{Var}(X) \geq [\text{E}(X)]^2$ or equivalently $[\text{CV}(X)]^2 \geq 1$.
+%\end{itemize}
+%}
+
+\section{Risk measures}
+\frame{\frametitle{Risk measures}
+\begin{itemize}
+\item A \alert{risk measure} is a mapping from the random variable representing loss (risk) to the set of real numbers.
+\smallskip
+\item It gives a single value that is intended to provide a magnitude of the level of risk exposure.
+\smallskip
+\item Notation: $\rho(X)$
+\smallskip
+\item Properties of a \alert{coherent} risk measure:
+\begin{itemize}
+\item subadditive: $\rho(X+Y) \leq \rho(X) + \rho(Y)$.
+\smallskip
+\item monotonic: $\rho(X) \leq \rho(Y)$ if $X \leq Y$ for all posssible outcomes.
+\smallskip
+\item positive homogeneous: $\rho(cX) = c \rho(X)$ for any positive constant $c$.
+\smallskip
+\item translation invariant: $\rho(X+c) = \rho(X) + c$ for any positive constant $c$.
+\end{itemize}
+\end{itemize}
+}
+
+\subsection{possible uses}
+\frame{\frametitle{Possible uses of risk measures}
+\begin{itemize}
+\item Premium calculations
+\smallskip
+\item Determination of risk/economic/regulatory capital requirements
+\smallskip
+\item Reserve calculations
+\smallskip
+\item Internal risk management
+\smallskip
+\item Financial reporting e.g. meeting regulatory requirements for financial reporting (Basel Accord II)
+\end{itemize}
+}
+
+\subsection{value-at-risk}
+\frame{\frametitle{Value-at-Risk measure}
+The \alert{value-at-risk} of $X$ at the 100$p$\% level, denoted by $\text{VaR}_p(X) = \pi_p$, is the 100$p$-th percentile (or quantile) of the distribution of $X$ and is the solution to
+\begin{equation*}
+\text{Pr}(X > \text{VaR}_p(X)) = 1-p.
+\end{equation*}
+Some examples:
+\begin{itemize}
+\item Normal distribution: $\text{VaR}_p(X) = \mu + \sigma \Phi^{-1}(p)$
+\smallskip
+\item Lognormal distribution: $\text{VaR}_p(X) = \exp[\mu + \sigma \Phi^{-1}(p)]$
+\smallskip
+\item Exponential distribution: $\text{VaR}_p(X) = -\theta \log(1-p)$
+\smallskip
+\item Pareto distribution: $\text{VaR}_p(X) = \theta [(1-p)^{-1/\alpha} -1 ]$
+\end{itemize}
+Some remarks:
+\begin{itemize}
+\item Value-at-risk is monotone, positive homogeneous and translation invariant, but not necessarily subadditive. See Example 3.13.
+\end{itemize}
+}
+
+\subsection{tail VaR}
+\frame{\frametitle{Tail Value-at-Risk measure}
+The \alert{tail value-at-risk} of $X$ at the 100$p$\% security level is defined to be
+\begin{equation*}
+\text{TVaR}_p(X) = \text{E}(X \mid X>\text{VaR}_p(X)) = \frac{\int_{\pi_p}^\infty xf(x) dx}{1-F(\pi_p)} = \frac{\int_{\pi_p}^\infty xf(x) dx}{1-p}.
+\end{equation*}
+It is the expected value of the loss, conditional on the loss exceeding the quantile (or VaR). Other formulas for TVaR:
+\begin{itemize}
+\item $\text{TVaR}_p(X) = \frac{\int_p^1 \text{VaR}_u(X) du}{1-p}$
+\smallskip
+\item $\text{TVaR}_p(X) = \text{VaR}_p(X) + e(\pi_p)$
+\smallskip
+\item $\text{TVaR}_p(X) = \pi_p + \frac{\text{E}(X) - \text{E}(X \wedge \pi_p)}{1-p}$
+\end{itemize}
+Some remarks:
+\begin{itemize}
+\item Other terms used are: conditional tail expectation (CTE), tail conditional expectation (TCE), expected shortfall (ES).
+\item The tail value-at-risk measure is considered coherent.
+\end{itemize}
+}
+
+\subsection{TVaRs for some distributions}
+\frame{\frametitle{Tail value-at-risk for some distributions}
+Some examples:
+\begin{itemize}
+\item Normal: $\text{TVaR}_p(X) = \mu + \sigma \dfrac{\phi[\Phi^{-1}(p)]}{1-p}$
+\smallskip
+\item Lognormal: $\text{TVaR}_p(X) = \exp(\mu+\sigma^2/2)\dfrac{\Phi(\sigma-\Phi^{-1}(p))}{1-p}$
+\smallskip
+\item Exponential: $\text{TVaR}_p(X) = \theta -\theta \log(1-p) = \theta + \text{VaR}_p(X)$
+\smallskip
+\item Pareto: $\text{TVaR}_p(X) = \text{VaR}_p(X) + \dfrac{\text{VaR}_p(X)+\theta}{\alpha-1}$
+\end{itemize}
+}
+
+\subsection{limitations}
+\frame{\frametitle{Examples}
+Spend time in class with help from neighbors. Find the $\text{VaR}_{.95}(X)$ and $\text{TVaR}_{.95}(X)$ for each of the following distributions:
+\begin{itemize}
+    \item Normal Distribution with Mean (\(\mu\)) = 100, Standard Deviation (\(\sigma\)) = 15.
+    \item Uniform Distribution with Lower bound (\(a\)) = 50, Upper bound (\(b\)) = 200.
+    \item Exponential Distribution with Rate (\(\lambda\)) = 0.03.
+
+\end{itemize}
+}
+
+
+\subsection{limitations}
+\frame{\frametitle{Beware of risk measures}
+\begin{itemize}
+\item Note that a risk measure provides a single value to quantify the level of risk exposure. There is possibly no single risk measure that can provide the whole picture of the danger of the exposure.
+\smallskip
+\item It is therefore important to be cautious of the uses and limitations of the risk measure being used: make sure you understand what the risk measure quantifies which aspect of the risk.
+\smallskip
+\item Some risk measures are based also on the model being used; beware of model risk together with the uncertainty of the parameter used in the model.
+\smallskip
+\item Downfall of hedge fund LTCM in 1998: had a sophisticated VaR-based risk management system in place but errors in parameter estimation, unexpected large market moves, vanishing liquidity contributed to downfall.
+\end{itemize}
+}
+
+\end{document}

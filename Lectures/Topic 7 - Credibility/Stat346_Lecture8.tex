@@ -1,0 +1,399 @@
+\documentclass[compress,mathserif]{beamer}
+
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsxtra}
+\usepackage{hyperref}
+\usepackage{tensor}
+\usepackage{dsfont}
+
+\newcommand{\ntp}{\\ \vspace{1em}}
+
+\mode<presentation> {
+  \usetheme{default}
+  \useoutertheme{infolines}
+  \setbeamercovered{transparent}
+  \beamertemplateballitem
+}
+
+\title{Credibility}
+\author{Chapters 17-19}
+\institute[Stat 346]{Stat 346 - Short-term Actuarial Math}
+\date[ BYU]{}
+\subject{Stat 346}
+
+\begin{document}
+
+\begin{frame}
+ \titlepage
+\end{frame}
+
+\begin{frame}\frametitle{Why Credibility?}
+You purchase an auto insurance policy and it costs \$150. That price is mainly the expected cost of a policyholder with your characteristics (car make and model, age, driving record, etc.). After three years, you have no claims. You call the insurer to explain how you are better than the average driver with your characteristics, so should be charged less. \ntp
+Is your record a sign of your good driving, or just random chance?
+
+\end{frame}
+
+\frame{\frametitle{Full Credibility}
+	If the sample mean $\bar X_n$ is a stable estimator of $\xi$, the true mean, then we should only use $\bar X_n$. We say the data is fully credible in this situation. More specifically,\ntp 
+	\[Pr(-r\xi \leq \bar X -\xi \leq r\xi) \geq p \] \ntp
+	which says that the difference between the estimated mean and the true mean is proportionally small, with high probability (common choices of $p$ and $r$ are 0.9 and 0.05, respectively)
+}
+
+\frame{\frametitle{Full Credibility cont.}
+	We can restate that previous formula as
+	\[\Pr\left(\left|\frac{\bar X - \xi}{\sigma/\sqrt{n}} \right| \leq \frac{r\xi \sqrt{n}}{\sigma}\right) \geq p\]
+	and find the minimum value
+	\[y_p = \inf_y \left\{\Pr\left(\left|\frac{\bar X - \xi}{\sigma/\sqrt{n}}\right| \leq y\right)\geq p\right\}\]
+	If it is continuous then
+	\[\Pr\left(\left|\frac{\bar X - \xi}{\sigma/\sqrt{n}}\right| \leq y_p\right)= p\]
+	Therefore, for full credibility, $y_p \leq r\xi \sqrt{n}/\sigma$
+}
+
+\frame{\frametitle{Full Credibility cont.}
+	For full credibility, 
+	\[ y_p \leq \frac{r\xi \sqrt{n}}{\sigma} \rightarrow n \geq \left( \frac{y_p \sigma}{r\xi}\right)^2\]
+	In many cases, we can assume that 
+	\[\frac{\bar X - \xi}{\sigma/\sqrt{n}}\]
+	follows a standard normal distribution. And
+	\[p = \Pr(|Z| \leq y_p) = 2\Phi(y_p) - 1 \]
+	Therefore $y_p$ is the $(1+p)/2$ percentile of the standard normal distribution.
+	
+	This is also called Limited Fluctuation Credibility.
+}
+
+\frame{\frametitle{Central Limit Example}
+	Suppose 10 past years' losses are available from a policyholder \ntp
+	0\hfill 0\hfill 0\hfill 0\hfill 0\hfill 0\hfill 253\hfill 398\hfill 439\hfill 756\hfill \ntp
+	The sample mean is used to estimate $\xi = E(X_j)$. Determine the full credibility standard with $r=0.05$ and $p=0.9$.
+	\begin{align*}
+		n &\geq \left( \frac{y_p \sigma}{r\xi} \right)^2\\
+		&= \left( \frac{(1.645)(267.89)}{(0.05)(184.6)} \right)^2\\
+		&= 2279.51
+	\end{align*}
+	Note that we used the sample mean and standard deviation to estimate $\xi$ and $\sigma$ and that 10 samples fall far short of the full credibility standard.
+}
+
+\frame{\frametitle{Poisson Example}
+	Assume that we are interested in estimating the number of claims and assume the follow a Poisson$(\lambda)$ distribution. Find the number of policies necessary for full credibility.
+	We know that $\xi = E(N_j) = \lambda$ and $\sigma^2 = Var(N_j) = \lambda$ so the full credibility standard is
+	\begin{align*}
+		n &\geq \left(\frac{y_p \sqrt{\lambda}}{r\lambda}\right)^2\\
+		&= \frac{y_p^2}{r^2 \lambda}
+	\end{align*}
+	and $\lambda$ will need to be estimated from the data.
+}
+
+\frame{\frametitle{Aggregate Payments Example}
+	Assume further that each claim size has a mean of $\theta_Y$ and a variance of $\sigma^2_Y$. What is the standard for full credibility in terms of the average aggregate claim amount? \ntp
+	\[\xi = E(S_j) = \lambda\theta_Y  \] 
+	\[\sigma^2 = Var(S_j) = \lambda(\theta_Y^2 + \sigma_Y^2)\]
+	\begin{align*}
+		n &\geq \left(\frac{y_p}{r}\right)^2\frac{\lambda(\theta_Y^2 + \sigma_Y^2)}{\lambda^2\theta^2_Y}\\
+		&= \frac{y_p^2}{r^2\lambda}\left[1 + \left( \frac{\sigma_Y}{\theta_Y}\right)^2 \right]
+	\end{align*}
+}
+\frame{\frametitle{SOA Practice \#2}
+	You are given:
+\begin{itemize}
+	\item The number of claims has a Poisson distribution.
+	\item Claim sizes have a Pareto distribution with parameters $\theta=0.5$ and $\alpha=6$.
+	\item The number of claims and claim sizes are independent.
+	\item The observed pure premium should be within 2\% of the expected pure premium 90\% of the time.	
+	\end{itemize}
+
+Calculate the expected number of claims needed for full credibility. [16,913]
+
+}
+\frame{\frametitle{Partial Credibility}
+	Rather than either using either only the data or the manual rate, how about a weighted average? The partial credibility estimate (or credibility premium) is:
+	\[P_c = Z\bar X + (1-Z)M\]
+	where $Z$ is the credibility factor. 
+}
+\frame{\frametitle{Partial Credibility}
+	It can be shown that 
+	\begin{align*}
+		\frac{\xi^2 r^2}{y_p^2} &= Var(P_c)\\
+		&= Var[Z \bar X + (1-Z)M]\\
+		&= Z^2 Var(\bar X)\\
+		&= Z^2 \frac{\sigma^2}{n}\\
+		\therefore Z &= \frac{\xi r \sqrt{n}}{\sigma y_p}
+	\end{align*}
+	It turns out that the credibility factor is the square root of the ratio of the actual count to the count needed for full credibility.
+	
+}
+\frame{\frametitle{SOA Example \#65}
+	You are given the following information about a general liability book of business comprised
+of 2500 insureds:
+\begin{itemize}
+	\item $X_i = \sum_{j=1}^{N_i}Y_{ij}$ is a random variable representing the annual loss of the ith insured.
+\item $N_1, N_2, \ldots, N_{2500}$ are independent and identically distributed random variables
+following a negative binomial distribution with parameters $r = 2$ and $\beta=0.2$.
+\item $Y_{i1},Y_{i2},\ldots,Y_{iN_i}$ are independent and identically distributed random variables following
+a Pareto distribution with $\alpha=3$ and $\theta=1000$.
+\item The full credibility standard is to be within 5\% of the expected aggregate losses 90\%
+of the time.
+\end{itemize}
+
+Using limited fluctuation credibility theory, calculate the partial credibility of the annual loss
+experience for this book of business. [0.47]
+	
+}
+
+\begin{frame}
+\frametitle{Partial Credibility}
+
+ The formula for calculating a partially credible estimate is:
+
+\[
+\text{Estimated Value} = Z \times \mu + (1 - Z) \times M
+\]
+
+where:
+\begin{itemize}
+  \item \(Z\) is the credibility factor, ranging from 0 to 1, indicating the weight given to the observed data.
+  \item \(\mu\) is the mean of the observed data.
+  \item \(M\) is the manual rate or historical rate used as a benchmark.
+\end{itemize}
+
+The credibility factor \(Z\) is determined based on the amount of data available and the level of variability in that data. As the amount of data increases and becomes more reliable, \(Z\) approaches 1, giving more weight to the observed data.
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example: Calculating Partial Credibility}
+
+Consider an insurance policy where we want to estimate the premium based on observed claim data and a manual rate. Suppose the observed mean claim amount (\(\mu\)) is \$1,000, the manual rate (\(M\)) is \$1,200, and the credibility factor (\(Z\)) for this policy is 0.7 due to the limited number of claims.
+
+Using the partial credibility formula:
+
+\[
+\text{Estimated Premium} = Z \times \mu + (1 - Z) \times M
+\]
+
+Substituting the given values:
+
+\[
+\text{Estimated Premium} = 0.7 \times 1000 + (1 - 0.7) \times 1200 = 1060
+\]
+
+
+
+\end{frame}
+
+
+
+%\frame{\frametitle{Greatest Accuracy Credibility Example 1}
+%	Assume there are two different types of drivers, good and bad drivers. The variable $x$ is the number of claims in any one year.
+%	\begin{center}\begin{tabular}{cccc} \hline
+%	$x$&$Pr(x|G)$&$Pr(x|B)$&\\ \hline
+%	0&0.7&0.5& $Pr(G) = 0.75$\\
+%	1&0.2&0.3& $Pr(B) = 0.25$\\
+%	2&0.1&0.2&\\ \hline
+%	\end{tabular}\end{center}
+%}
+%
+%\frame{\frametitle{Example 1 cont.}
+%	Suppose a policyholder had 0 claims the first year and 1 claim the second year. Determine 
+%	\begin{itemize}
+%		\item the predictive distribution of his claims in the third year [0.65, 0.23, 0.13] 	
+%		\item the posterior probability of him being a good driver. [0.737]
+%		\item the Bayesian premium [0.479]
+%	\end{itemize}
+%}
+%
+%
+%\frame{\frametitle{Greatest Accuracy Credibility Example 2}
+%	Assume that the amount of a claim has an exponential distribution with mean $1/\theta$. The parameter $\theta$ follows a gamma distribution with $\alpha=4$ and $\beta = 1/1000$.
+%	
+%	\begin{align*}
+%		f(x|\theta) = & \theta e^{-\theta x}\\
+%		f(\theta) = & \frac{1}{6 \cdot 1000^{-4}} \theta^3 e^{-1000\theta}\\
+%	\end{align*}
+%}
+%\frame{\frametitle{Example 2 cont.}
+%	Suppose a policyholder had claims of 100, 950, and 450. Determine 
+%	\begin{itemize}
+%		\item the predictive distribution of the fourth claim. 	
+%		\item the posterior distribution of $\theta$.
+%		\item the Bayesian premium [416.67]
+%	\end{itemize}
+%}
+%
+%\frame{\frametitle{B\"{u}hlmann Model}
+%	The B\"{u}hlmann model is the simplest credibility model. Under this model, past losses $X_1, \ldots, X_n$ have the same mean and variance and are i.i.d. conditional on $\Theta$. We define
+%	\[\mu(\theta) = E(X_j|\Theta=\theta) \qquad \text{[hypothetical mean]} \]
+%	\[ \nu(\theta) = Var(X_j|\Theta=\theta) \qquad \text{[process variance]} \]
+%We further define
+%	\begin{align*}
+%		\mu &= E[\mu(\Theta)]\\
+%		\nu &= E[\nu(\Theta)]\\
+%		a &= Var[\mu(\Theta)]\\
+%	\end{align*}
+%}
+%
+%\frame{\frametitle{B\"{u}hlmann Model continued}
+%	With the definitions on the previous slide, we can find the mean, variance, and covariance of the $X_j$s.
+%	\begin{align*}
+%		E(X_j) &= \mu\\
+%		Var(X_j) &= \nu + a\\
+%		Cov(X_i, X_j)& = a \quad \text{for } i\neq j\\
+%	\end{align*}
+%}
+%
+%\frame{\frametitle{B\"{u}hlmann Model continued}
+%	The credibility premium follows a familiar form
+%	\[ Z\bar X + (1-Z) \mu\]
+%	where
+%	\[ Z = \frac{n}{n+k}\]
+%	and 
+%	\[k = \frac{\nu}{a} = \frac{E[Var(X_j|\Theta)]}{Var[E(X_j|\Theta)]} \]
+%}
+%
+%\frame{\frametitle{B\"{u}hlmann Example}
+%	Recall example 1,
+%	\begin{center}\begin{tabular}{cccc} \hline
+%	$x$&$Pr(x|G)$&$Pr(x|B)$&\\ \hline
+%	0&0.7&0.5& $Pr(G) = 0.75$\\
+%	1&0.2&0.3& $Pr(B) = 0.25$\\
+%	2&0.1&0.2&\\ \hline
+%	\end{tabular}\end{center}
+%	Find the B\"{u}hlmann estimate of $E(X_3|0,1)$. 
+%	\[\mu=0.475,\quad a=0.016875,\quad \nu=0.4825 \]
+%	\[k=28.5926,\quad Z=0.0654,\quad E(X_3|0,1)=0.4766 \]
+%}
+%
+%\frame{\frametitle{SOA Example \#18}
+%Two risks have the following severity distributions:
+%\vfill
+%\begin{tabular}{ccc}
+%&Probability of Claim&Probability of Claim\\
+%Amount of Claim & Amount for Risk 1 & Amount for Risk 2\\\hline
+%250 &0.5 &0.7\\
+% 2,500 &0.3 &0.2\\
+%60,000 &0.2 &0.1\\
+%\end{tabular}
+%\vfill
+%Risk 1 is twice as likely to be observed as Risk 2.
+%A claim of 250 is observed.
+%Calculate the Bühlmann credibility estimate of the second claim amount from the same risk. [10,622]
+%
+%}
+%
+%\frame{\frametitle{B\"{u}hlmann-Straub Model}
+%	The B\"{u}hlmann model assumes that all the past claims are i.i.d. but what if they are not. The B\"{u}hlmann-Straub model generalizes the B\"{u}hlmann model to allow each of the $X_i$ to be effected by its own exposure, $m_i$. The $X_i$ are independent, conditional on $\Theta$, with common mean
+%	\[\mu(\theta) = E(X_j|\Theta = \theta)\]
+%	but with conditional variances
+%	\[Var(X_j|\Theta = \theta) = \frac{\nu(\theta)}{m_j}\]
+%}
+%
+%\frame{\frametitle{B\"{u}hlmann-Straub Model}
+%	Similar to the B\"uhlmann model, define
+%	\begin{align*}
+%		\mu &= E[\mu(\Theta)]\\
+%		\nu &= E[\nu(\Theta)]\\
+%		a &= Var[\mu(\Theta)]\\
+%	\end{align*}
+%	Then we can find the mean, variance, and covariance of the $X_j$s.
+%	\begin{align*}
+%		E(X_j) &= \mu\\
+%		Var(X_j) &= \frac{\nu}{m_j} + a\\
+%		Cov(X_i, X_j)& = a \quad \text{for } i\neq j\\
+%	\end{align*}
+%}
+%
+%\frame{\frametitle{B\"{u}hlmann-Straub Model continued}
+%	For convenience, let 
+%	\[m = m_1 + m_2 + \cdots + m_n\]
+%	The credibility premium again follows a familiar form
+%	\[ Z\bar X + (1-Z) \mu, \quad \bar X = \sum_{j=1}^n \frac{m_j}{m}X_j\]
+%	where
+%	\[ Z = \frac{m}{m+\nu/a}\]
+%}
+%
+%\frame{\frametitle{SOA Example \#21}
+%	You are given:
+%	\begin{enumerate}[(i)]
+%		\item The number of claims incurred in a month by any insured has a Poisson distribution with mean $\lambda$.
+%		\item The claim frequencies of different insureds are independent.
+%		\item The prior distribution of $\lambda$ is gamma with probability density function:
+%				\[f(\lambda) = \frac{(100\lambda)^6e^{-100\lambda}}{120\lambda} \]
+%		\item 
+%		\begin{tabular}{ccc}		\hline
+%		Month &Number of Insureds &Number of Claims\\ \hline
+%		1& 100& 6\\
+%		2& 150& 8\\
+%		3& 200& 11\\
+%		4& 300& ?\\\hline
+%		\end{tabular}
+%	\end{enumerate}
+%Calculate the B\"{u}hlmann-Straub credibility estimate of the number of claims in Month 4. [16.9]
+%}
+%
+%\frame{\frametitle{Nonparametric Estimation}
+%	We may want to make as few distributional assumptions as possible. We can then simply use nonparametric, unbiased estimators of the B\"{u}hlmann quantities as follows:
+%	\begin{align*}
+%		\hat \mu &= \bar X\\
+%		\hat \nu &= \frac{1}{r(n-1)}\sum^r_{i=1}\sum^n_{j=1}(X_{ij} - \bar X_i)^2\\
+%		\hat a &= \frac{1}{r-1} \sum^r_{i=1}(\bar X_i - \bar X)^2 - \frac{1}{rn(n-1)}\sum^r_{i=1}\sum^n_{j=1}(X_{ij}-\bar X_i)^2\\
+%	\end{align*}
+%}
+%
+%\frame{\frametitle{SOA Example \#12}
+%	You are given total claims for two policyholders:
+%	\begin{center}\begin{tabular}{ccccc}
+%	&\multicolumn{4}{c}{Year}\\
+%Policyholder &1 &2 &3& 4\\ \hline
+%X &730 &800 &650 &700\\
+%Y &655 &650 &625 &750\\
+%	\end{tabular}\end{center}
+%
+%	Using the nonparametric empirical Bayes method, calculate the B\"{u}hlmann credibility premium for Policyholder Y. [687.4]
+%}
+%
+%\frame{\frametitle{Nonparametric Estimation Cont.}
+%	We can similarly find nonparametric, unbiased estimators of the B\"{u}hlmann-Straub quantities as follows:
+%	\begin{align*}
+%		\hat \mu &= \bar X\\
+%		\hat \nu &= \frac{\sum^r_{i=1}\sum^{n_i}_{j=1}m_{ij}(X_{ij} - \bar X_i)^2}{\sum^r_{i=1}(n_i - 1)}\\
+%		\hat a &= \begin{cases} \frac{\sum_{i=1}^rm_i(\bar X_i - \bar X)^2 - \hat\nu(r-1)}{m - m^{-1}\sum^r_{i=1}m_i^2} & \text{ if } \mu \text{ is unknown}\\ \sum^r_{i=1} \frac{m_i}{m}(\bar X_i - \mu)^2 - \frac{r}{m}\hat \nu & \text{ if } \mu \text{ is known} \end{cases}
+%	\end{align*}
+%}
+%\frame{\frametitle{Example}
+%	For a group policyholder, we have the data in the table below.
+%	\begin{center}\begin{tabular}{cccc}
+%	& Year 1 & Year 2 & Year 3\\ \hline
+%	Total Claims & 60,000 & 70,000 & -\\
+%	Number in Group & 125 & 150 & 200\\
+%	\end{tabular}\end{center}
+%	If the manual rate is 500 per year per member, estimate the total credibility premium for year 3. [94,874]
+%}
+%
+%\frame{\frametitle{Semiparametric Estimation}
+%	Sometimes it makes sense to assume a parametric distribution. For example, if claim counts ($m_{ij}X_{ij}$) are assumed to follow a Poisson($m_{ij}\theta_i$) distribution. In that case,
+%	\[E(m_{ij}X_{ij}|\Theta_i) = Var(m_{ij}X_{ij}|\Theta_i) = m_{ij}\Theta_i\]
+%	Implying that 
+%	\[\mu(\Theta_i) = \nu(\Theta_i) = \Theta_i\]
+%	and 
+%	\[\mu=\nu\]
+%	which means that we could use $\bar X$ to estimate $\nu$.
+%}
+%\frame{\frametitle{Example}
+%	In the past year, the distribution of automobile insurance policyholders by number of claims is
+%	\begin{center}
+%	\begin{tabular}{cc}
+%	Claims & Insureds\\ \hline
+%	0&1563\\
+%	1&271\\
+%	2&32\\
+%	3&7\\
+%	4&2\\
+%	\end{tabular}
+%	\end{center}
+%	For each policyholder, find a credibility estimate of the number of claims next year based on the past year's experience, assuming a (conditional) Poisson distribution on the number of claims. [$(0.14)X_i + 0.86(0.194)$]
+%}
+
+
+\end{document}

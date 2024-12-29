@@ -1,0 +1,584 @@
+\documentclass[compress,mathserif]{beamer}
+
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsxtra}
+\usepackage{hyperref}
+\usepackage{tensor}
+\usepackage{dsfont}
+
+\mode<presentation> {
+  \usetheme{default}
+  \useoutertheme{infolines}
+  \setbeamercovered{transparent}
+  \beamertemplateballitem
+}
+
+\title[Parameter Estimation]{Parameter Estimation}
+\author{Chapters 13-15}
+\institute[Stat 346]{Stat 346 - Short-term Actuarial Math}
+\date[BYU]{}
+\subject{Stat 346}
+
+\begin{document}
+
+\begin{frame}
+ \titlepage
+\end{frame}
+
+\section{Methods for parameter estimation}
+\frame{\frametitle{Methods for parameter estimation}
+Methods for estimating parameters in a parametric model: \\
+\smallskip
+\begin{itemize}
+\item method of moments
+\smallskip
+\item matching of quantiles (or percentiles)
+\smallskip
+\item maximum likelihood estimation
+\begin{itemize}
+\item full/complete, individual data
+\item complete, grouped data
+\item truncated or censored data
+\end{itemize}
+\smallskip
+\item Bayes estimation
+\end{itemize}
+We are only going to discuss MLEs.
+}
+
+%\section{Method of moments}
+%\frame{\frametitle{Method of moments}
+%Assume we observe values of the random sample $X_1,\ldots,X_n$ from a population with common distribution function $F(x|\theta)$ where $\theta = (\theta_1,\ldots,\theta_p)$ is a vector of $p$ parameters. \\
+%\smallskip
+%The observed sample values will be denoted by $x_1,\dots,x_n$. \\
+%\smallskip
+%Denote the $k$-th raw moment by $\mu'_k(\theta) = \text{E}(X^k|\theta)$. Denote the empirical (sample) moments by
+%\begin{equation*}
+%\hat{\mu}'_k = \frac{1}{n} \sum_{j=1}^n x_j^k.
+%\end{equation*}
+%The \alert{method of moments} is fairly straightforward: equate the first $p$ raw moments to the corresponding $p$ empirical moments and solve the resulting system of simultaneous equations:
+%\begin{equation*}
+%\mu'_k(\hat{\theta}) = \frac{1}{n} \sum_{j=1}^n x_j^k.
+%\end{equation*}
+%}
+%
+%\subsection{Illustrations}
+%\frame{\frametitle{Illustrations}
+%\begin{itemize}
+%\item \textbf{Example 1:} For a Normal distribution, derive expressions for the method of moment estimators for the parameters $\mu$ and $\sigma^2$.
+%\medskip
+%\item \textbf{Example 2:} For a Gamma distribution with a shape parameter $\alpha$ and a scale parameter $\theta$, derive expressions for their method of moment estimators.
+%\medskip
+%\item \textbf{Example 3:} For a Pareto distribution, derive expressions for the method of moment estimators for the parameters $\alpha$ and $\theta$.
+%\end{itemize}
+%}
+%
+%\frame{\frametitle{SOA Example \#6}
+%	For a sample of dental claims $x_1, x_2, \ldots, x_{10}$ you are given:
+%\begin{itemize}
+%	\item $\sum x_i = 3860$ and $\sum x_i^2 = 4,574,802$
+%	\item Claims are assumed to follow a lognormal distribution with parameters $\mu$ and $\sigma$.
+%	\item $\mu$ and $\sigma$ are estimated using the method of moments.
+%\end{itemize}
+%Calculate $E[X \wedge 500]$ for the fitted distribution. [$\sim$259]
+%}
+%
+%\section{Matching of quantiles}
+%\frame{\frametitle{Matching of quantiles}
+%Denote the 100$q$-th quantile of the distribution by $\pi_q(\theta)$ for which in the case of continuous distribution is the solution to:
+%\begin{equation*}
+%F(\pi_q(\theta)|\theta) = q.
+%\end{equation*}
+%Denote the \alert{smoothed empirical estimate} by $\hat{\pi}_q$. This is usually found by solving for
+%\begin{equation*}
+%\hat{\pi}_q = (1-h) x_{(j)} + h x_{(j+1)},
+%\end{equation*}
+%where $j = \lfloor (n+1)q \rfloor$ and $h = (n+1)q - j$. Here $x_{(1)} \leq \cdots \leq x_{(n)}$ denote the order statistics of the sample. \\
+%The \alert{quantile matching} estimate of $\theta$ is any solution to the $p$ equations:
+%\begin{equation*}
+%\pi_{q_k}(\hat{\theta}) = \hat{\pi}_{q_k} \ \text{for } k=1,2,\ldots,p,
+%\end{equation*}
+%where the $q_k$'s are $p$ arbitrarily chosen quantiles.
+%}
+%
+%\subsection{Example}
+%\frame{\frametitle{Example}
+%Suppose the following observed sample
+%\begin{equation*}
+%12,\ 15,\ 18,\ 21,\ 21,\ 23,\ 28,\ 32,\ 32,\ 32,\ 58
+%\end{equation*}
+%come from a Weibull with
+%\begin{equation*}
+%F(x|\lambda,\gamma) = 1 - e^{-\lambda x^{\gamma}}.
+%\end{equation*}
+%Calculate the \textit{quantile matching} estimates of $\lambda$ and $\gamma$ by matching the median and the 75-th quantile.
+%}
+%
+%\frame{\frametitle{SOA Example \#155}
+%	You are given the following data:
+%\begin{center}0.49 0.51 0.66 1.82 3.71 5.20 7.62 12.66 35.24\end{center}
+%You use the method of percentile matching at the 40th and 80th percentiles to fit an inverse
+%Weibull distribution to these data.
+%Calculate the estimate of $\theta$. [1.614]
+%}
+
+\section{Maximum likelihood estimation}
+\frame{\frametitle{The method of maximum likelihood}
+The \alert{maximum likelihood estimate} of parameter vector $\theta$ is obtained by maximizing the likelihood function. The likelihood contribution of an observation is the probability of observing the data. \\
+\smallskip
+In many cases, it is more straightforward to maximize the logarithm of the likelihood function. \\
+\smallskip
+The likelihood function will vary depending on whether it is completely observed, or if not, then possibly truncated and/or censored.
+}
+
+\section{Likelihood function}
+\subsection{Complete, individual data}
+\frame{\frametitle{Complete, individual data}
+In the case where observations in a data set were observed without  no truncation and no censoring and each observation $X_i$, for $i=1,\ldots,n$, is recorded, the likelihood function is
+\begin{equation*}
+L(\theta) = \prod_{j=1}^n f_{X_j}(x_j|\theta).
+\end{equation*}
+The corresponding log-likelihood function is
+\begin{equation*}
+\ell(\theta) = \log[L(\theta)] = \sum_{j=1}^n \log f_{X_j}(x_j|\theta).
+\end{equation*}
+
+This type of data is called \textbf{complete, individual data}. 
+
+}
+
+\begin{frame}
+\frametitle{MLE for Discrete Case: Poisson Distribution}
+Poisson distribution is used for modeling count data. Given a sample $x_1, x_2, \ldots, x_n$ from a Poisson distribution with parameter $\lambda$, the likelihood function is:
+\begin{equation*}
+L(\lambda) = \prod_{i=1}^{n} \frac{e^{-\lambda} \lambda^{x_i}}{x_i!}
+\end{equation*}
+The log-likelihood function is:
+\begin{equation*}
+\ell(\lambda) = \sum_{i=1}^{n} (-\lambda + x_i \log(\lambda) - \log(x_i!))
+\end{equation*}
+Maximizing $\ell(\lambda)$ w.r.t. $\lambda$ gives the MLE of $\lambda$ as the sample mean:
+\begin{equation*}
+\hat{\lambda} = \bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i
+\end{equation*}
+\end{frame}
+
+
+\subsection{Illustrations}
+\frame{\frametitle{Illustrations}
+Assume we have $n$ samples completely observed. Derive expressions for the maximum likelihood estimates for the following distributions:
+\smallskip
+\begin{itemize}
+\item \textbf{Exponential:} $f_X(x) = \lambda e^{-\lambda x}$, for $x>0$.
+\medskip
+\item \textbf{Uniform:} $f_X(x) = \frac{1}{\theta}$, for $0 < x < \theta$.
+\end{itemize}
+}
+
+\begin{frame}
+\frametitle{Closed-Form MLE Solutions for Key Distributions}
+\textbf{1. Uniform Distribution $(0, \theta)$:}
+\begin{itemize}
+    \item MLE: $\hat{\theta} = x_{\max}$, the maximum observed value.
+\end{itemize}
+
+\textbf{2. Normal Distribution $(\mu, \sigma^2)$:}
+\begin{itemize}
+    \item MLEs: $\hat{\mu} = \bar{x}$ and $\hat{\sigma}^2 = \frac{1}{n}\sum_{i=1}^{n}(x_i - \bar{x})^2$.
+\end{itemize}
+
+\textbf{3. Binomial Distribution $(m, q)$:}
+\begin{itemize}
+    \item MLE: $\hat{q} = \frac{\bar{x}}{n}$, the sample proportion.
+\end{itemize}
+
+\textbf{4. Exponential Distribution $(\lambda)$:}
+\begin{itemize}
+    \item MLE: $\hat{\theta} = \bar{x}$, the sample mean.
+\end{itemize}
+
+\textbf{5. Poisson Distribution $(\lambda)$:}
+\begin{itemize}
+    \item MLE: $\hat{\lambda} = \bar{x}$, the sample mean.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Constructing Likelihood Functions for Heterogeneous Observations}
+When observations come from different distributions or parameters, the overall likelihood is the product of individual likelihoods. 
+
+\textbf{Example:}
+Suppose we have two sets of observations, $X_1, ..., X_m$ from a Normal distribution with parameters $\mu$ and $\sigma^2$, and $Y_1,...,Y_k$ from a Binomial distribution with parameters $m$ and $q$. The likelihood functions are:
+\begin{itemize}
+    \item For $X$: $L_X(\mu, \sigma^2) = \prod_{i=1}^{m} \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x_i-\mu)^2}{2\sigma^2}}$
+    \item For $Y$: $L_Y(m, q) = \prod_{j=1}^{k} {m \choose y_j} q^{y_j} (1-q)^{m-y_j}$
+\end{itemize}
+The overall likelihood function is $L(\mu, \sigma^2, n, p) = L_X(\mu, \sigma^2) \times L_Y(n, p)$.
+
+This approach allows for the simultaneous estimation of parameters from diverse data sources.
+\end{frame}
+
+
+\frame{\frametitle{SOA Example \#26}
+	 You are given:
+		\begin{itemize}
+	\item Low-hazard risks have an exponential claim size distribution with mean $\theta$.
+	\item Medium-hazard risks have an exponential claim size distribution with mean $2\theta$.
+	\item High-hazard risks have an exponential claim size distribution with mean $3\theta$.
+	\item No claims from low-hazard risks are observed.
+	\item Three claims from medium-hazard risks are observed, of sizes 1, 2 and 3.
+	\item One claim from a high-hazard risk is observed, of size 15.
+		\end{itemize}
+Calculate the maximum likelihood estimate of $\theta$. [2]
+}
+
+\begin{frame}
+\frametitle{Calculating MLE for \(\theta\)}
+
+\textbf{Likelihood Function:}
+ The likelihood \(L(\theta)\) is the product of individual likelihoods:
+\begin{eqnarray*}
+L(\theta) &=& \left(\frac{1}{2\theta}e^{-\frac{1}{2\theta}} \cdot \frac{1}{2\theta}e^{-\frac{2}{2\theta}} \cdot \frac{1}{2\theta}e^{-\frac{3}{2\theta}}\right) \cdot \left(\frac{1}{3\theta}e^{-\frac{15}{3\theta}}\right) \nonumber \\
+&=& \frac{e^{-\frac{8}{\theta}}}{24\theta^4}
+\end{eqnarray*}
+
+
+\textbf{Log-Likelihood Function:}
+\[
+\ell(\theta) = \log(L(\theta)) = -\log(24) - 4\log(\theta) - \frac{8}{\theta}
+\]
+
+\textbf{Finding MLE of \(\theta\):}
+Differentiate \(\ell(\theta)\) with respect to \(\theta\) and set to zero:
+\[
+\frac{d\ell(\theta)}{d\theta} = -\frac{4}{\theta} + \frac{8}{\theta^2}  = 0
+\]
+
+
+\end{frame}
+
+
+\subsection{Complete, grouped data}
+\frame{\frametitle{Complete, grouped data}
+Starting with a set of numbers $c_0 < c_1 < \cdots < c_k$ where from the sample, we have $n_j$ observed values in the interval $(c_{j-1},c_j]$. \\
+\smallskip
+For such data, the likelihood function is
+\begin{equation*}
+L(\theta) = \prod_{j=1}^k \left[F(c_j|\theta) - F(c_{j-1}|\theta) \right]^{n_j}.
+\end{equation*}
+}
+
+
+\subsection{Example}
+\frame{\frametitle{Example}
+Suppose you are given the following observations for a loss random variable $X$:
+\begin{center}
+\begin{tabular}{c|cc}
+\hline
+Interval &  & Number of Observations \\
+\hline \hline
+(0, 4] & & 6 \\
+(4, 8] & & 10 \\
+(8, $\infty$) & & 3 \\
+\hline \hline
+Total & & 19 \\
+\hline
+\end{tabular}
+\end{center}
+\smallskip
+Determine the log-likelihood function of the sample if $X$ has a Pareto with parameters $\alpha$ and $\theta$. If it is possible to maximize this log-likelihood and solve explicitly, determine the MLE of the parameters.
+}
+
+
+\begin{frame}
+\frametitle{Likelihood Function for Grouped Data}
+
+
+\textbf{Grouped Data Likelihood:}
+\small
+\[
+L(\alpha, \theta) = \left[F(4|\alpha, \theta) \right]^{6} \times \left[F(8|\alpha, \theta) - F(4|\alpha, \theta) \right]^{10} \times \left[1 - F(8|\alpha, \theta) \right]^{3}
+\]
+
+\footnotesize
+\[
+L(\alpha, \theta) = \left[1 - \left(\frac{\theta}{\theta + 4}\right)^\alpha \right]^{6} \times \left[\left(1 - \left(\frac{\theta}{\theta + 8}\right)^\alpha\right) - \left(1 - \left(\frac{\theta}{\theta + 4}\right)^\alpha\right) \right]^{10} \times 
+\]
+\[
+\left[1 - \left(1 - \left(\frac{\theta}{\theta + 8}\right)^\alpha\right) \right]^{3}
+\]
+\begin{equation*}
+= \left[1 - \left(\frac{\theta}{\theta + 4}\right)^{\alpha} \right]^{6} \times \left[\left(\frac{\theta}{\theta + 4}\right)^{\alpha} - \left(\frac{\theta}{\theta + 8}\right)^{\alpha} \right]^{10} \times \left[\left(\frac{\theta}{\theta + 8}\right)^{\alpha} \right]^{3}
+\end{equation*}
+
+\normalsize
+
+
+\end{frame}
+
+
+\frame{\frametitle{SOA Example \#44}
+	You are given:
+	\begin{itemize}
+		\item Losses follow an exponential distribution with mean $\theta$.
+		\item A random sample of 20 losses is distributed as follows:
+		\begin{center}\begin{tabular}{lc}
+			Loss Range & Frequency\\ \hline
+			[0,1000] & 7\\
+			(1000, 2000] & 6\\
+			(2000, $\infty$) & 7\\ \hline
+		\end{tabular}\end{center}
+	\end{itemize}
+	Which of the following could be the MLE?
+	\begin{enumerate}[(a)]
+	\item 1701.04
+	\item 1876.43
+	\item 1996.90
+	\end{enumerate}
+}
+
+\begin{frame}
+\frametitle{Truncated vs. Censored Data: Definitions and Examples}
+\textbf{Truncated Data} occurs when observations falling outside a certain range are not included in the analysis at all. For example, a study on adult heights excluding individuals below 5 feet.
+
+\textbf{Censored Data} involves observations that are only partially known. For instance, in survival analysis, we may know an individual has survived beyond a certain time but not the exact time of death.
+
+\textbf{Real World Scenarios:}
+\begin{itemize}
+\item An employment study only including individuals with incomes above a certain threshold (Truncated).
+\item A clinical trial where patients are followed up for a fixed period, and some are still alive at the end of the study (Right Censored).
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Identifying Truncated vs. Censored Data}
+Consider the following scenarios. Are they examples of truncated or censored data?
+
+\begin{enumerate}
+\item A survey on household income where only incomes above \$50,000 are reported.
+\item A study on the lifespan of appliances where the study ends after 10 years, and some appliances are still operational.
+\item An insurance claim dataset that only includes claims above a certain deductible.
+\end{enumerate}
+
+\textbf{Discussion:}
+\begin{itemize}
+\item Scenario 1 and 3 involve truncation since data below a threshold is not included.
+\item Scenario 2 involves censoring because we have partial information for some observations (i.e., they are still operational at the study's end).
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Likelihood Contribution for Truncated Data}
+
+\textbf{Truncated Data} occurs when observations outside a certain range are not included in the analysis. 
+
+\begin{itemize}
+    \item \textbf{Left Truncated:} Observations are only included if they exceed a certain value, \(L\).
+    \[
+    L(\theta) = \frac{f(x|\theta)}{1 - F(L|\theta)}
+    \]
+    where \(f(x|\theta)\) is the PDF and \(F(L|\theta)\) is the CDF at the truncation point \(L\).
+
+    \item \textbf{Right Truncated:} Observations are only included if they are below a certain value, \(U\).
+    \[
+    L(\theta) = \frac{f(x|\theta)}{F(U|\theta)}
+    \]
+    where \(F(U|\theta)\) is the CDF at the truncation point \(U\).
+\end{itemize}
+
+Truncation affects the range of observable data and adjusts the likelihood function accordingly.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Likelihood Contribution for Censored Data}
+
+\textbf{Censored Data} occurs when the observation is only partially known.
+
+\begin{itemize}
+    \item \textbf{Left Censored:} The exact value is unknown, but it is known to be less than a certain value, \(L\).
+    \[
+    L(\theta) = F(L|\theta)
+    \]
+    
+    \item \textbf{Right Censored:} The exact value is unknown, but it is known to be greater than a certain value, \(U\).
+    \[
+    L(\theta) = 1 - F(U|\theta)
+    \]
+\end{itemize}
+
+Censoring indicates the presence of partial information about observations, impacting the likelihood function's formulation.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Likelihood Contribution for Left Truncated and Right Censored Data}
+
+When data are \textbf{Left Truncated and Right Censored}, observations are only included if they exceed a lower bound, \(L\), and are known only to be above a certain value, \(U\), if they exceed an upper bound.
+
+\[
+L(\theta) = \left\{
+  \begin{array}{ll}
+  \frac{f(x|\theta)}{1 - F(L|\theta)}, & \text{if } x \text{ is observed exactly} \\
+  \frac{1 - F(U|\theta)}{1 - F(L|\theta)}, & \text{if } x \text{ is right censored}
+  \end{array}
+\right.
+\]
+
+This case combines the adjustments for both truncation and censoring, modifying the likelihood function to accommodate the reduced and partially known observation ranges.
+
+\end{frame}
+
+\begin{frame}
+
+Consider an exponential distribution with parameter \(\theta\), left truncation at 2, observed data points at 3 and 5, and two data points right-censored at 6.
+
+\textbf{Exponential PDF and CDF:}
+\[
+f(x|\theta) = \frac{1}{\theta}e^{-\frac{x}{\theta}}, \quad F(x|\theta) = 1 - e^{-\frac{x}{\theta}}
+\]
+
+
+\begin{itemize}
+    \item For observed data (3 and 5):
+    \[
+    L_{\text{obs}}(\theta) = \left(\frac{f(3|\theta)}{1-F(2|\theta)}\right) \times \left(\frac{f(5|\theta)}{1-F(2|\theta)}\right)
+    \]
+    
+    \item For right-censored data (>6):
+    \[
+    L_{\text{cens}}(\theta) = \left(\frac{1 - F(6|\theta)}{1-F(2|\theta)}\right)^2
+    \]
+\end{itemize}
+
+\textbf{Combined Likelihood:}
+\[
+L(\theta) = L_{\text{obs}}(\theta) \times L_{\text{cens}}(\theta)
+\]
+
+
+\end{frame}
+
+\begin{frame}
+
+Sometimes the math works out nicely
+\[
+L(\theta) = \left(\frac{\frac{1}{\theta}e^{-\frac{3}{\theta}}}{e^{-\frac{2}{\theta}}}\right) \times \left(\frac{\frac{1}{\theta}e^{-\frac{5}{\theta}}}{e^{-\frac{2}{\theta}}}\right) \times \left(\frac{e^{-\frac{6}{\theta}}}{e^{-\frac{2}{\theta}}}\right)^2
+\]
+\[
+L(\theta) = \left(\frac{1}{\theta^2}e^{-\frac{3+5-4}{\theta}}\right) \times \left(e^{-\frac{12-4}{\theta}}\right)
+\]
+\[
+L(\theta) = \frac{1}{\theta^2}e^{-\frac{16}{\theta}}
+\]
+
+Distributions with a CDF of the form $1 - ...$ are good candidates for these types of problems. 
+\end{frame}
+
+
+\frame{\frametitle{SOA Example \#4}
+	 You are given:
+\begin{itemize}
+	\item Losses follow a single-parameter Pareto distribution with density function:
+	\[f(x) = \frac{\alpha}{x^{\alpha+1}} \qquad x > 1 \qquad 0< \alpha< \infty\]
+	\item A random sample of size five produced three losses with values 3, 6 and 14, and two
+losses exceeding 25.
+\end{itemize}
+
+Calculate the maximum likelihood estimate of $\alpha$. [0.2507]
+}
+
+\subsection{Example}
+\frame{\frametitle{Illustrative example}
+An insurance company records the claim amounts from a portfolio of policies with a current deductible of 100 and policy limit of 1100. Losses less than 100 are not reported to the company and losses above the limit are recorded as 1000. The recorded claim amounts as
+\begin{equation*}
+120, \ 180, \ 200, \ 270, \ 300, \ 1000, \ 1000.
+\end{equation*}
+Assume ground-up losses follow a Pareto with parameters $\alpha$ and $\theta = 400$.\\
+\smallskip
+Use the maximum likelihood estimate of $\alpha$ to estimate the Loss Elimination Ratio for a policy with twice the current deductible.
+}
+
+%\section{Bayesian estimation}
+%\frame{\frametitle{Definitions and notation}
+%Assume that conditionally on $\theta$, the observable random variables $X_1,\ldots,X_n$ are i.i.d. with conditional density $f_{X|\theta}(x|\theta)$. Denote the random vector $\mathbf{X} = (X_1,\ldots,X_n)'$.
+%\smallskip
+%\begin{itemize}
+%\item \alert{prior distribution}: the probability distribution of $\theta$ with density $\pi(\theta)$.
+%\smallskip
+%\item joint distribution of $(\mathbf{X},\theta)$ is given by
+%\begin{eqnarray*}
+%f_{\mathbf{X},\theta}(\mathbf{x},\theta) &=& f_{\mathbf{X}|\theta}(\mathbf{x}|\theta) \cdot \pi(\theta) \\
+%  &=& f_{X|\theta}(x_1|\theta) \cdots f_{X}(x_n|\theta) \cdot \pi(\theta).
+%\end{eqnarray*}
+%\end{itemize}
+%}
+%
+%\subsection{Posterior distribution}
+%\frame{\frametitle{Posterior distribution}
+%The conditional probability distribution of $\theta$, given the observed data $X_1,\ldots,X_n$, is called the \alert{posterior distribution}. \\
+%\smallskip
+%This is denoted by $\pi(\theta|\mathbf{X})$ and is computed using
+%\begin{equation*}
+%\pi_{\theta|\mathbf{X}}(\theta|\mathbf{x}) = \frac{f_{\mathbf{X},\theta}(\mathbf{x},\theta)}{\displaystyle \int f_{\mathbf{X},\theta}(\mathbf{x},\theta) d\theta} = \frac{f_{\mathbf{X}|\theta}(\mathbf{x}|\theta) \pi(\theta)}{\displaystyle \int f_{\mathbf{X}|\theta}(\mathbf{x}|\theta) \pi(\theta) d\theta}.
+%\end{equation*}
+%
+%\begin{itemize}
+%\item We can conveniently write $\pi_{\theta|\mathbf{X}}(\theta|\mathbf{x}) = c \cdot f_{\mathbf{X}|\theta}(x_1,\ldots,x_n|\theta) \pi(\theta)$, where $c$ is the constant of integration.
+%\smallskip
+%\item More often, we write $\pi_{\theta|\mathbf{X}}(\theta|\mathbf{x}) \propto f_{\mathbf{X}|\theta}(x_1,\ldots,x_n|\theta) \pi(\theta)$.
+%\end{itemize}
+%\smallskip
+%The mean of the posterior, $\text{E}(\theta|\mathbf{X})$, is called the \alert{Bayes estimator} of $\theta$.
+%}
+%
+%\subsection{Poisson with a Gamma prior}
+%\frame{\frametitle{Poisson with a Gamma prior}
+%Suppose that conditionally on $\theta$, claims on an insurance policy $X_1,\ldots,X_n$ are distributed as Poisson with mean $\lambda$. \\
+%\medskip
+%Let the prior distribution of $\lambda$ be a Gamma with parameters $\alpha$ and $\theta$ (as in textbook). \\
+%\medskip
+%\begin{itemize}
+%\item Show that the posterior distribution is also Gamma distributed and find expressions for its parameters.
+%\smallskip
+%\item Show that the resulting Bayes estimator can be expressed as the weighted combination of the sample mean and the prior mean.
+%\end{itemize}
+%}
+%
+%\subsection{SOA Exam Question}
+%\frame{\frametitle{SOA Exam Question}
+%You are given:
+%\begin{itemize}
+%\item Conditionally, given $\beta$, an individual loss $X$ has Exponential distribution with density:
+%\begin{equation*}
+%f(x|\beta) = \frac{1}{\beta} e^{-x/\beta}, \ \ \text{for } x>0.
+%\end{equation*}
+%\item The prior distribution of $\beta$ is Inverse Gamma with density:
+%\begin{equation*}
+%\pi(\beta) = \frac{c^2}{\beta^3} e^{-c/\beta}, \ \ \text{for } \beta>0.
+%\end{equation*}
+%\item Hint: $\displaystyle \int_0^{\infty} \frac{1}{y^n} e^{-a/y} dy = \frac{(n-2)!}{a^{n-1}}$, for $n=2, 3, \ldots$
+%\end{itemize}
+%\smallskip
+%Given that the observed loss is $x$, calculate the mean of the posterior distribution of $\beta$.
+%}
+%
+%\frame{\frametitle{SOA Example \#5}
+%	You are given
+%	\begin{itemize}
+%		\item The annual number of claims for a policyholder has a binomial distribution with
+%probability function:
+%\[p(x|q)= \binom{2}{x} q^x(1-q)^{2-x}, \qquad x = 0, 1, 2, \ldots\]
+%		\item The prior distribution is:
+%		\[p(q) = 4q^3, \qquad 0<q<1\]
+%	\end{itemize}
+%This policyholder had one claim in each of Years 1 and 2.
+%Calculate the Bayesian estimate of the number of claims in Year 3. [4/3]
+%}
+
+\end{document}

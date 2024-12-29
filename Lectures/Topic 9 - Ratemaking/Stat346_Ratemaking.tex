@@ -1,0 +1,270 @@
+\documentclass[compress,mathserif]{beamer}
+
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsxtra}
+\usepackage{hyperref}
+\usepackage{tensor}
+\usepackage{dsfont}
+
+\newcommand{\ntp}{\\ \vspace{1em}}
+
+\mode<presentation> {
+  \usetheme{default}
+  \useoutertheme{infolines}
+  \setbeamercovered{transparent}
+  \beamertemplateballitem
+}
+
+\title{Ratemaking}
+\author{}
+\institute[Stat 346]{Stat 346 - Short-term Actuarial Math}
+\date[ BYU]{}
+\subject{Stat 346}
+
+\begin{document}
+
+\begin{frame}
+ \titlepage
+\end{frame}
+
+
+\begin{frame}{Setting Rates}
+    \begin{itemize}
+        \item Setting rates involves determining the premium to charge policyholders.
+        \item A common approach is to set rates equal to:
+        \begin{align*}
+            \text{Rate} &= \text{Expected losses} + \text{Expenses} + \text{Profit}
+        \end{align*}
+        \item However, this approach can vary depending on the specific circumstances and regulatory requirements.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Permissible Loss Ratio}
+    \begin{itemize}
+        \item The permissible loss ratio (PLR) is a key metric used in ratemaking.
+        \item It is defined as:
+        \begin{align*}
+            \text{PLR} &= 1 - \frac{\text{Expenses}}{\text{Premium}} - \frac{\text{Profit}}{\text{Premium}}
+        \end{align*}
+        \item PLR represents the proportion of premiums that can be used to cover losses.
+        \item A higher PLR indicates a higher level of risk tolerance.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Alternate Approaches}
+    \begin{itemize}
+        \item Rates can also be determined using alternate approaches:
+        \begin{itemize}
+            \item Setting rates equal to losses divided by the permissible loss ratio:
+            \begin{align*}
+                \text{Rate} &= \frac{\text{Losses}}{\text{PLR}}
+            \end{align*}
+            \item Setting rates equal to:
+            \begin{align*}
+                \text{Rate} &= \frac{\text{Losses} + F}{1 - V}
+            \end{align*}
+            where $F$ represents fixed costs per exposure (e.g., salaries, overhead) and $V$ represents costs that scale with premium (e.g., profit, contingencies).
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Policy Year Analysis}
+    \begin{itemize}
+        \item In insurance, data is often measured by accident year and calendar year.
+        \item However, rates for policies are typically updated mid-year.
+        \item To analyze this, we assume policies are uniformly written over the course of the year.
+        \item This allows us to calculate earned premium and unearned premium.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Earned Premium vs. Unearned Premium}
+    \begin{itemize}
+        \item \textbf{Earned Premium}: Policyholder payments made in a given year.
+        \item \textbf{Unearned Premium}: Payments from policies in that year but to be paid in later years.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Example Problem: One Year Policies}
+    \begin{itemize}
+        \item Suppose a company has one year policies.
+        \item For a given year, there are $24,000$ in written premiums.
+        \item \textbf{Question}: How much is actually earned premium by the end of the year?
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Example Problem Solution: One Year Policies}
+    \begin{itemize}
+        \item Assuming policies are uniformly written over the year, earned premium is half of written premium.
+        \item So, earned premium for the year is $12,000$.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Example Problem: Six Month Policies}
+    \begin{itemize}
+        \item Now, let's consider six month policies.
+        \item For the same year, with $24,000$ in written premiums.
+        \item \textbf{Question}: How much is actually earned premium by the end of the year?
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Example Problem Solution: Six Month Policies}
+    \begin{itemize}
+        \item Policies written in the first half of the year contribute their entire premium to earned premium.
+        \item For policies written in the second half, only half of the premium is earned.
+        \item So, earned premium for the year is $12,000 + (12,000 / 2) = 18,000$.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Ratemaking Methods}
+Wee see that timing is very important when taking historical data and creating new rates. For this reason, we define two specific methods for ratemaking based on using updated values:
+\begin{itemize}
+\item Loss Cost method
+\item Loss Ratio method
+\end{itemize}
+These approaches attempt to update loss costs and loss ratios respectively to expected values during the policy period. 
+\end{frame}
+
+\begin{frame}{Loss Cost Method}
+Recall the rate formula
+            \begin{align*}
+                \text{Rate} &= \frac{\text{Losses}}{\text{PLR}}
+            \end{align*}
+The loss cost method updates the loss costs to current values and allows for fixed effects. 
+         \begin{align*}
+                \text{Rate} &= \frac{\text{ Expected Effective Losses} + F}{\text{PLR}}
+            \end{align*}
+            where $F$ is fixed expenses per exposure. To find  expected effective loss costs, we need to take past data and \textbf{trend} and \textbf{develop} it. We've seen developing data. In this case we can use a reserving method to estimate future costs of existing accident years. However, there will be more accidents during the policy period that don't show up on the claims triangle. 
+\end{frame}
+
+\begin{frame}{Premium Trends}
+    \begin{itemize}
+        \item Premiums often increase over time.
+        \item This increase is typically exponential growth.
+        \item One way to estimate the growth trend from data is using log-linear regression.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Projected Loss Cost}
+    \begin{itemize}
+        \item Projected loss cost can be calculated using the formula:
+        \begin{align*}
+            \text{Projected Loss Cost} &= \text{Experienced Loss Cost} \times \exp(\delta t)
+        \end{align*}
+        \item Where $\delta$ represents rate of growth and $t$ is the time period for projection.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Choosing Time Points for Projection}
+    \begin{itemize}
+        \item When projecting loss costs, it's important to choose appropriate time points.
+        \item For data from accident years, use the average of the years.
+        \item When projecting for a specific policy, consider that you can buy a policy at any time during the year (assumed time period for a product to be available). Person A buys a policy at the beginning of the policy year, so most of Person A's losses will occur during that same year. Person B buys the policy towards the end of the year, so most of that person's losses will actually occur the following year. 
+        \item Use a parallelogram approach
+        \item A few specific common cases
+        \begin{itemize}
+            \item For 1 year policies, project at the end of the year.
+            \item For 6 month policies in force for a year, project at 3/4 through the year.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Example}
+    \begin{itemize}
+        \item Losses for 2014 were \$2,100 per exposure unit and in 2015 they were \$2,200 per exposure unit.
+        \item It is determined that losses grow at an exponential rate with $\delta = 0.05$.
+        \item We wish to project losses for a new 1-year policy that starts on November 1st 2016.
+    \end{itemize}
+
+    \textbf{Question:} What would the projected losses be for this policy when using 2014 data? What about using  2015 data?
+
+    \begin{itemize}
+        \item \textbf{Answer for 2014:} For 2014, the average date of accidents was midyear. We start the clock on July 1, 2014. For the new policy, the average loss will be on November 1st, 2017. Hence, $t = 3 \frac{1}{3}$. The projected loss is \$2,480.86.
+        \item \textbf{Answer for 2015:} For 2015, $t = 2\frac{1}{3}$ and projected losses will be \$2,472.24.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Example}
+ 
+    \textbf{Question:} Instead of a one year policy, they want to make an 18 month policy and keep the same rate for 2 years instead of a standard one year. How would we project losses from 2015?
+
+    \begin{itemize}
+        \item \textbf{Answer:}  Again the midpoint for 2015 data is July 1st, 2015. The midpoint for the policy period is 21 months into the policy (draw parallelogram). This would be August 1, 2018. Hence $t = 3\frac{1}{12}$ and the projection would be $2200 e^{.05\times 3.167} = 2577.43$ per year. Note that since this is two years for the policy, we would actually expect this loss to be doubled. 
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Example}
+    \begin{itemize}
+        \item You work for a dental insurance company. You find that Losses for 2006 were \$150 per exposure unit. 
+        \item You are projecting losses use an exponential trend model.
+        \item A new 8-month policy goes into effect February 1, 2008 for for the following year. 
+        \item You project losses for the policy to be \$182. 
+    \end{itemize}
+    What $\delta$ did you use?
+\end{frame}
+
+
+\begin{frame}{Example}
+Full Loss Cost problem. You know that reported claims for the last few year follow this claims triangle. 
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+    \hline
+    \multicolumn{4}{|c|}{\textbf{Claims Triangle}} \\ \hline
+    \textbf{Accident Year} & \textbf{DY0} & \textbf{DY1} & \textbf{DY2} \\ \hline
+    \textbf{2022} & $150$ & $200$ & $250$ \\ \hline
+    \textbf{2023} & $180$ & $220$ &  \\ \hline
+    \textbf{2024} & $200$ & &  \\ \hline
+    \end{tabular}
+\end{table}
+You also know the following
+\begin{itemize}
+\item The permissible loss ratio is 75\%. 
+\item The trend factor for exponential claims growth is $\delta = 0.075$. 
+\item The first two loss development factors for losses is estimated to be 1.28 and 1.25 (you could find your own from the table, but I'll give these to you to save time). 
+\item Assume no additional losses from years prior to 2022 and no tail factor
+\end{itemize}
+What should the rate be based on the loss cost method for a new one year policy starting in 2025?
+
+\end{frame}
+
+\begin{frame}{Example}
+First off, losses must be developed. 
+\begin{itemize}
+\item \textbf{2022}: $250$
+\item \textbf{2023}: $220 (1.27) = 279.4$
+\item \textbf{2024}: $200 (1.25)(1.27) = 317.5$
+\end{itemize} 
+We need to trend this for 2025 policies, we only need the last year. Projected losses are \[317.5 \times \exp{(.075 (1.5)} = 355.30\] The time period is 1.5 using parallelograms. Then the rate is \[355.30/.75 = 473.74\]
+\end{frame}
+
+\begin{frame}{Loss Ratio Method}
+The loss ratio method for ratemaking updates the loss ratio. Recall that loss ratio is pure premium as a fraction of earned premium. The loss ratio models the rate change as
+         \begin{align*}
+                \text{Rate Change} &= \frac{\text{Effective Loss Ratio + Fixed Expense Ratio }} {\text{PLR}} 
+            \end{align*}
+    You would calculate this and then add it to the current rate. 
+\end{frame}
+
+
+
+\begin{frame}{Loss Ratio Method}
+The pieces of the loss ratio 
+         \begin{align*}
+                \text{Rate Change} &= \frac{\text{Effective Loss Ratio + Fixed Expense Ratio }} {\text{PLR}} 
+            \end{align*}
+include
+         \begin{align*}
+                \text{Effective Loss Ratio } &= \frac{\text{Expected losses (trended and developed) }} {\text{Dollars of Earned Premium \textbf{at current rates}}} 
+            \end{align*}
+            \begin{align*}
+                \text{Fixed Expense Ratio } &= \frac{\text{Fixed Expenses }} {\text{Dollars of Earned Premium \textbf{at current rates}}} 
+            \end{align*}
+            We will spend the rest of this section figuring out what \textbf{at current rates} means. 
+\end{frame}
+
+\end{document}

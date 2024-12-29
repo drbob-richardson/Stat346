@@ -1,0 +1,72 @@
+\documentclass{article}
+\usepackage{setspace,fullpage}
+\usepackage{xcolor,amsmath}
+
+
+\begin{document}
+
+\begin{center}
+\textbf{Stat 346 Homework \#2}\\
+\vspace{0.3in}
+\end{center}
+\begin{enumerate}
+\item
+ For a given health insurance policy, the loss amount (expressed in thousands) per year has a pdf of
+    \[f(y) = cy(5-y), 0 < y < 4\]
+    where $c$ is a constant.
+    \begin{enumerate}
+        \item Calculate the $99^{th}$ percentile of the loss amount. (Use software to solve the final polynomial) \textcolor{red}{[3.954]}
+        \item Calculate the coefficient of variation of the loss amount. \textcolor{red}{[.4257]}
+        \item For a policy with a deductible of \$1000, calculate $E(Y^P)$ and $E(Y^L)$. \textcolor{red}{[\$1500, \$1326]}
+        \item For a policy with no deductible but with a limit of \$2500, calculate the expected loss amount. \textcolor{red}{[\$1976.84]}
+    \end{enumerate}
+%\item
+%A claim count distribution can be expressed as a modified Poisson distribution. The mean of the Poisson distribution is uniformly distributed over the interval [0,5]. Calculate the probability that there are 2 or more claims. \textcolor{red}{[.6094]}
+%\item 
+%The number of claims of an insurance coverage follows a Poisson distribution with mean $\lambda$ for each insured. The means $\lambda$ vary by insured and overall follow a gamma distribution. You are given:
+%	\begin{enumerate}
+%	\item[i]The probability of 0 claims for a randomly selected insured is 0.04.
+%	\item[ii] The probability of 1 claim for a randomly selected insured is 0.075.
+%	\item[iii] The probability of 2 claims for a randomly selected insured is 0.0879.
+%	\end{enumerate}
+% Determine the variance of the gamma distribution. \textcolor{red}{[3.119]}
+\item
+For a frequency distribution in the $(a,b,0)$ class, you are given
+	\begin{enumerate} 
+	\item[i] $p_{k}=0.0768$
+	\item[ii] $p_{k+1}=p_{k+2}=0.08192$
+	\item[iii] $p_{k+3}=0.0786432$
+	\end{enumerate}
+Determine the mean of this distribution by using E(N)=$\frac{a+b}{1-a}$ \textcolor{red}{[8]}
+\item 
+Claim frequency follows a distribution in the $(a,b,0)$ class. You are given that
+	\begin{enumerate}
+	\item[i]The probability of 4 claims is 0.066116.
+	\item[ii] The probability of 5 claims is 0.068761.
+	\item[iii] The probability of 6 claims is 0.068761.
+	\end{enumerate}
+Calculate the probability of no claims. \textcolor{red}{[.0179]}
+\item
+A random variable follows a zero-truncated Poisson distribution with $\lambda$=0.8. Calculate the third raw moment of the distribution. \textcolor{red}{[5.869]}
+
+\item A random variable $X$ has a c.d.f. of \[F_X(x) = 1-e^{-x^2/(2\sigma^2)}, ~~ x > 0. \] The 90th percentile is 4.29. What is $\sigma$?
+
+\item For a certain random variable, $X$, the TVaR$_{95}$ is 4 and the VaR$_{95}$ is 3. Determine the difference between the expected value of $X$ and the expected value of the limited loss random variable with a cap at $u=3$. 
+
+
+\item A random variable $X$ has pdf \[ f_X(x) = \frac{8}{(x+2)^3},~~x>0\] Determine the TVaR$_{99}$. 
+
+\item Suppose $N$ is a counting distribution satisfying the recursive probabilities:
+\[\frac{p_{k}}{p_{k-1}} = 0.8 + \frac{3.2}{k}\]
+for $k=1,2,\ldots$
+Identify the distribution of $N$.
+
+\item Consider the zero-truncated Binomial distribution with probabilities
+\begin{eqnarray*}
+p_0 &=& 0 \\
+p_k &=& C \binom{8}{k} 0.3^k (0.7)^{8-k} , \ \ \text{for} \ \ k=1,...,8
+\end{eqnarray*}
+Find the value of $C$. Derive the mean and the variance of this distribution.
+
+\end{enumerate} 
+\end{document}

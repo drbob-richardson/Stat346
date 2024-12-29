@@ -1,0 +1,185 @@
+\documentclass{article}
+\usepackage{setspace,fullpage,xcolor}
+\usepackage{booktabs} % For formal tables
+\usepackage{tabularx, xcolor, amsmath} % For adjustable-width columns
+\begin{document}
+
+\begin{center}
+\textbf{Stat 346 Homework \#9}\\
+\vspace{0.3in}
+\end{center}
+
+\section*{Homework Questions}
+
+\begin{enumerate}
+   \item Policy A was written prior to 2010. Policy C was written on 01/01/2011, but individuals purchase 1 year policies at any time during the year. Find the following using the claim detail from the table below:
+\begin{itemize}
+    \item AY 2010 reported (incurred) claims @ 12/31/2010
+    \item AY 2010 reported (incurred) claims @ 12/31/2011
+    \item CY 2011 reported (incurred) claims
+    \item PY 2010 reported (incurred) claims @ 12/31/2011
+\end{itemize}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{cccccc}
+\toprule
+Accident Date & Transaction Date & Claim Status & Payment & Case Reserve \\
+\midrule
+% Claim 1 (Policy A)
+\textbf{Claim 1} (Policy A) & & & & \\
+01/01/2010 & 01/20/2010 & Open & \$500 & \$1000 \\
+& 02/05/2010 & Open & \$1000 &  \$1000\\
+& 01/10/2011 & Closed & \$1500 & \\
+\midrule
+% Claim 2 (Policy A)
+\textbf{Claim 2} (Policy A) & & & & \\
+01/15/2011 & 01/25/2011 & Open & \$300 & \$800 \\
+& 02/15/2011 & Open & \$200 & \$800 \\
+& 08/05/2011 & Open & \$400 & \$500 \\
+\midrule
+% Claim 3 (Policy C)
+\textbf{Claim 3} (Policy C) & & & & \\
+04/01/2011 & 09/15/2011 & Open & \$600 & \$1200 \\
+& 10/10/2011 & Open & \$700 & \$700 \\
+& 11/05/2011 & Open & \$800 & \$400 \\
+& 12/10/2011 & Open & \$900 & \\
+& 01/05/2012 & Closed & \$1000 & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textcolor{red}{\textbf{Solution:}
+\begin{itemize}
+\item AY 2010 reported (incurred) claims @ 12/31/2010: This only includes Claim 1. By 12/31/2010 there have been 1500 in payments and there will be 1000 in case reserves. So there is \$2500 incurred losses for AY 2010 at that point
+\item AY 2010 reported (incurred) claims @ 12/31/2011: Still only including claim 1. Now there are no case reserves and 1500 more in payments, so total losses of \$3000. 
+    \item CY 2011 reported (incurred) claims: For claim 1, there is 1500 in payments plus -1000 in change in case reserve. For claim 2, there is 900 in payments and 500 in case reserve. For claim 3, there is 3000 in payments and 0 in case reserves. Total this is 500 + 1400 + 3000, or \$4900. 
+    \item PY 2010 reported (incurred) claims @ 12/31/2011. The answer is  0. Policy A was written prior to 2010. Policy C was written in 2011. Meaning none of these claims come from policy year 2010. 
+\end{itemize}
+}
+
+\item 
+You know that reported claims for the last few years follow this claims triangle:
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+    \hline
+    \multicolumn{4}{|c|}{\textbf{Claims Triangle}} \\ \hline
+    \textbf{Accident Year} & \textbf{DY0} & \textbf{DY1} & \textbf{DY2} \\ \hline
+    \textbf{2022} & $120$ & $180$ & $240$ \\ \hline
+    \textbf{2023} & $150$ & $200$ &  \\ \hline
+    \textbf{2024} & $170$ & &  \\ \hline
+    \end{tabular}
+\end{table}
+You also know the following:
+\begin{itemize}
+\item The permissible loss ratio is $80\%$.
+\item The trend factor for exponential claims growth is $\delta = 0.07$.
+\item The first two loss development factors for losses are estimated to be $1.35$ and $1.30$.
+\item Assume no additional losses from years prior to 2022 and no tail factor.
+\end{itemize}
+What should the rate be based on the loss cost method for a new one-year policy starting in 2025?
+
+\textcolor{red}{\textbf{Solution:}
+Develop the reported losses for each accident year:
+\begin{itemize}
+    \item \textbf{2022}: $240$
+    \item \textbf{2023}: $200 \times 1.35 = 270$
+    \item \textbf{2024}: $170 \times 1.30 \times 1.35 = 305.55$
+\end{itemize}
+Project the losses for the 2025 policy year:
+\begin{itemize}
+    \item Projected losses: $305.55 \times \exp{(0.07 \times 1.5)} = 342.18$
+    \item (Using parallelograms with a time period of 1.5)
+\end{itemize}
+Calculate the rate based on the loss cost method:
+\begin{itemize}
+    \item Rate = $(342.18 + 0)/0.80 = 427.725$
+\end{itemize}
+Note that I do not give any fixed expenses, so that is added in as a 0. 
+}
+\newpage
+
+\item  
+The following earned premiums were calculated for the specific years given in the table:
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}cc@{}}
+\toprule
+Calendar Year & Earned Premium (\$) \\ \midrule
+2017          & 1,800,000           \\
+2018          & 2,000,000           \\
+2019          & 2,200,000           \\ \bottomrule
+\end{tabular}
+\end{table}
+
+During this time, rates were subjected to the following rate changes:
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}ccc@{}}
+\toprule
+Rate Change & Effective Date  & Percentage Change \\ \midrule
+1           & September 1, 2017 & 10\%              \\
+2           & April 1, 2018    & 15\%              \\ \bottomrule
+\end{tabular}
+\caption{Rate changes during the calendar years}
+\end{table}
+
+
+Assume that rate changes are applied proportionally to the remaining part of the year from the date they take effect and that all policies are 1-year policies. Other actuaries have determined that expected effective losses for 2020 are 1,600,000 and fixed expenses are 150,000. The permissible loss ratio is 80\%. The current average rate per exposure unit is 1100. Based on this information, use the loss ratio method to determine rates for the 2020 year. 
+
+\textcolor{red}{\textbf{Solution:}
+We will use the current rates of 2019 earned premiums. I do not give any indication that I want an average over several years, so we just assume the most recent year of premiums. If we let $P$ be the earned premium rate for the beginning of 2019. The beginning of 2020 rate would be $1.15P$. To find the rate level for 2019, we us parallelograms. On Jan 1st, 75\% will have the new rate, 25\% will still have the old rate. This will last through April 1st, when everyone has the new rate. This means, $(.25)^2/2 = .03125$ of premiums were at $P$ and $1 - .03125 = .96875$ have $1.15P$. Then the rate level is $.03125 \times P + 0.96875 \times 1.15 P = 1.145$. The on-level factor is then $\frac{1.15}{1.145} = 1.004$. The earned exposures at current rates is then $1.004 \times 2200000 = 2209005$. Using this the loss ratio method says rates increase by \[\frac{\frac{1600000}{2209005} + \frac{150000}{2209005}}{0.8} = 0.99\]. This means the new rate should be $1100 \times 0.99 = 1089.23$. }
+
+\item 
+You are given the following information:
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Item}                          & \textbf{Value}              \\ \midrule
+Expected Effective Losses (Trended and Developed)    & \$500,000                   \\
+Exposure Units                         & 10,000                      \\
+Earned Premium at Current Rates        & \$700,000                   \\
+Current Average Premium                & \$70                        \\
+Fixed Expenses                         & \$100,000                   \\
+Fixed Expenses per Exposure Unit       & \$10                        \\
+Permissible Loss Ratio                 & 80\%                        \\ \bottomrule
+\end{tabular}
+\end{table}
+
+You need to find the new rate based on the loss cost method and the loss ratio method.
+
+\textcolor{red}{\textbf{Loss Cost Method:}}
+
+- \textcolor{red}{\textbf{Expected Effective Loss Cost Calculation:}}
+\[ \text{Expected Effective Loss Cost} = \frac{\$500,000}{10,000} = \$50 \]
+
+- \textcolor{red}{\textbf{New Rate Calculation:}}
+\[ \text{New Rate} = \frac{\$50 + \$10}{0.80} = \$75 \]
+
+\textcolor{red}{\textbf{Loss Ratio Method:}}
+
+- \textcolor{red}{\textbf{Expected Effective Loss Ratio Calculation:}}
+\[ \text{Expected Effective Loss Ratio} = \frac{\$500,000}{\$700,000} = 0.7143 \]
+
+- \textcolor{red}{\textbf{Fixed Expense Ratio Calculation:}}
+\[ \text{Fixed Expense Ratio} = \frac{\$10}{\$70} = 0.1429 \]
+
+- \textcolor{red}{\textbf{Indicated Rate Change Calculation:}}
+\[ \text{Indicated Rate Change} = \frac{0.7143 + 0.1429}{0.80} = 1.0715 \]
+
+- \textcolor{red}{\textbf{New Rate Calculation (using rate change):}}
+\[ \text{New Rate} = \$70 \times 1.0715 = \$75 \]
+
+\textcolor{red}{\textbf{Conclusion:}}
+
+Both methods yield the same new rate of \$75.
+
+
+
+   
+   \end{enumerate}
+
+\end{document}

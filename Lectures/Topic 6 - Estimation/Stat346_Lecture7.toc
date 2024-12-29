@@ -1,0 +1,8 @@
+\beamer@sectionintoc {1}{Methods for parameter estimation}{2}{0}{1}
+\beamer@sectionintoc {2}{Maximum likelihood estimation}{3}{0}{2}
+\beamer@sectionintoc {3}{Likelihood function}{4}{0}{3}
+\beamer@subsectionintoc {3}{1}{Complete, individual data}{4}{0}{3}
+\beamer@subsectionintoc {3}{2}{Illustrations}{6}{0}{3}
+\beamer@subsectionintoc {3}{3}{Complete, grouped data}{11}{0}{3}
+\beamer@subsectionintoc {3}{4}{Example}{12}{0}{3}
+\beamer@subsectionintoc {3}{5}{Example}{23}{0}{3}

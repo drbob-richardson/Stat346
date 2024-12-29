@@ -1,0 +1,189 @@
+\documentclass{beamer}
+\usepackage{beamerinnerthemecircles, beamerouterthemeshadow}
+\usepackage{amsmath, amsfonts, amscd, epsfig, amssymb, amsthm}
+\usepackage{amsmath, amssymb, amsfonts, amsthm, epsfig, graphicx,float,enumerate}
+\usepackage{graphicx,float,enumerate,natbib, subfigure, caption,dsfont}
+\usepackage{graphicx,float,enumerate,relsize,bm,subfigure}
+\usepackage[gen]{eurosym}
+\usepackage{siunitx}
+
+\DeclareSIUnit{\pers}{pers}
+\DeclareSIUnit{\EUR}{\text{\euro}}
+\sisetup{
+  per-mode = fraction,
+  inter-unit-product = \ensuremath{{}\cdot{}},
+}
+
+\usepackage{tikz}
+\usetikzlibrary{matrix}
+
+
+
+
+\mode<presentation> {
+    \usetheme{Frankfurt} %Bergen, Berkely, Berlin, Boadilla, CambridgeUS, Darmstadt,
+                          %Frankfurt, Goettingen, Singapore, Warsaw
+    \usecolortheme{default} %beetle, seahorse, wolverine, dolphin, beaver
+}
+
+\title{Black Scholes}
+
+\author{}
+\date{}
+\usepackage{lipsum}
+
+\newcommand\Wider[2][3em]{%
+\makebox[\linewidth][c]{%
+  \begin{minipage}{\dimexpr\textwidth+#1\relax}
+  \raggedright#2
+  \end{minipage}%
+  }%
+}
+% If you want to display your table of contents at every Section/Subsection:
+%\AtBeginSection[] {
+%\begin{frame}<beamer>{Table of Contents}
+%\tableofcontents[currentsection,currentsubsection]
+%\end{frame}
+%}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}
+\frametitle{Binomial Tree Limit}
+
+Consider a 100-strike option with $S=100$, $r = .06, \delta = .06, \sigma = .1$ and $t=1$. What happens as the number of binomial periods increases?
+
+\begin{table}
+\centering
+\begin{tabular}{|c|c|}
+\hline
+Num of Periods & Premium \\ \hline
+1 & 4.70 \\ \hline
+2 & 3.32 \\ \hline
+3 & 4.07 \\ \hline
+4 & 3.53 \\ \hline
+5 & 3.94 \\ \hline
+6 & 3.60 \\ \hline
+\end{tabular}
+\end{table}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Binomial Tree Limit}
+
+Continued ...
+\begin{table}
+\centering
+\begin{tabular}{|c|c|}
+\hline
+Num of Periods & Premium \\ \hline
+7 & 3.89 \\ \hline
+8 & 3.64 \\ \hline
+9 & 3.86 \\ \hline
+10 & 3.66 \\ \hline
+11 & 3.84 \\ \hline
+12 & 3.67 \\ \hline
+$\vdots$ & $\vdots$ \\ \hline
+50 & 3.73 \\ \hline
+100 & 3.75 \\ \hline
+1000 & 3.755 \\ \hline
+\end{tabular}
+\end{table}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Binomial Tree Limit}
+
+Eventually it settles near a specific value. As fun as it would be to
+do a 1000 period binomial tree, there is an easier way to  find out
+what that limit is.
+
+\vspace{2 cm}
+
+A set of equations gives us the limit. They are called the \textbf{Black-Scholes} equations.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Black-Scholes}
+The Black-Scholes equations:
+\begin{eqnarray*}
+d_1 &=& \frac{\log(S/K) + (r+.5 \sigma^2) T}{\sigma \sqrt{T}} \\
+d_2 &=& d_1-\sigma\sqrt{T} \\
+C &=& S N(d_1) - K e^{-rT} N(d_2) \\
+P &=& K e^{-rT} N(-d_2) - S N(-d_1) \\
+\end{eqnarray*}
+
+where $N(\cdot)$ is the normal CDF function, found from a table.
+\end{frame}
+
+\begin{frame}
+\frametitle{Black-Scholes}
+Consider a 100-strike option with \(S=100\), \(r = .06\), \(\sigma = .1\) and \(T=1\). Assume dividend rate \(\delta = 0\). What is the Black-Scholes price?
+\pause
+\begin{eqnarray*}
+d_1 &=& \frac{\log(S/K) + (r + .5 \sigma^2) T}{\sigma \sqrt{T}} \\
+    &=& \frac{\log(100/100) + (.06 + .5 \times .1^2) \times 1}{.1 \times \sqrt{1}} \\
+    &=& 0.65 \\
+d_2 &=& d_1 - \sigma\sqrt{T} \\
+    &=& 0.65 - 0.1 \times \sqrt{1} \\
+    &=& 0.55 \\
+\end{eqnarray*}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Black-Scholes}
+Consider a 100-strike option with \(S=100\), \(r = .06\), \(\sigma = .1\) and \(T=1\). What is the Black-Scholes price?
+\begin{eqnarray*}
+d_1 &=&  0.65 \\
+d_2 &=&  0.55 \\
+\end{eqnarray*}
+The call option price is:
+\begin{eqnarray*}
+C &=& 100 N(d_1) - 100 e^{-0.06} N(d_2) \\
+  &=& 100 N(0.65) - 100 e^{-0.06} N(0.55) \\
+  &=& 7.459322
+\end{eqnarray*}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Black-Scholes Practice}
+The current price of a stock is \$40,  the risk free rate is \(r = .03\), and the volatility of the stock is \(\sigma = .1\). Using Black-Scholes, what is the price of a call option that expires in 9 months to purchase the stock at a strike price of 39?
+\begin{eqnarray*}
+d_1 &=& 0.595 \\
+d_2 &=& 0.509\\
+\end{eqnarray*}
+\pause
+The call option price is:
+\begin{eqnarray*}
+C &=& 40 N(d_1) - 39 e^{-0.03 \cdot 0.75} N(d_2) \\
+&=& 2.483579
+\end{eqnarray*}
+\end{frame}
+
+\begin{frame}
+\frametitle{Black-Scholes Practice for Put Option}
+Using the same parameters, what is the price of a \emph{put} option?
+\pause
+The put option price is:
+\begin{eqnarray*}
+P &=& 39 e^{-0.03 \cdot 0.75} N(-d_2) - 40 N(-d_1) \\
+&=& 0.6158774
+\end{eqnarray*}
+\end{frame}
+
+
+\end{document}
+
+
+
+
+
+
+

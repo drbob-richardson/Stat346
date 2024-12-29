@@ -1,0 +1,70 @@
+\documentclass{article}
+\usepackage{setspace,fullpage,xcolor}
+
+
+\begin{document}
+
+\begin{center}
+\textbf{Stat 346 Homework \#7}\\
+Due: Wednesday March 22nd in class.
+\vspace{0.3in}
+\end{center}
+	\begin{enumerate}
+		\item You are given the following losses:
+			\begin{center}
+				800, 1100, 1300, 2150, 2300, 2450, 2650
+			\end{center}
+			You fit an inverse exponential to the loss distribution using maximum likelihood.\\
+			Determine the resulting estimate of the probability of a loss below 1000. \textcolor{red}{[.219]}
+		\item The following claim experience is observed:
+		\begin{center}
+			\begin{tabular}{c|c}
+				Claim Size & Number of Claims\\
+				\hline
+				0 - 1500 & 15\\
+				1500 - 3000 & 8\\
+				3000 - $\infty$ & 3
+			\end{tabular}
+		\end{center}
+			You fit an exponential to the claim size distribution using maximum likelihood.\\
+			Show that 1543.431 is the maximum likelihood estimate for mean claims. 
+		\item You are given:
+			\begin{itemize}
+				\item Fourteen lives are subject to the survival function
+					\begin{center}
+						$S(t) = (1-\frac{t}{k})^\frac{1}{2}, \qquad 0 \leq t \leq k.$
+					\end{center}
+				\item The first two deaths in the sample occurred at time t = 12.
+				\item The study ends at time t = 12. \\
+				Find the maximum likelihood estimate of k. \textcolor{red}{[42]}
+			\end{itemize}
+		\item 
+Consider claims following a distribution with the probability density function (PDF) given by:
+\[
+f(x|\theta) = 2\theta x e^{-\theta x^2}, \quad x > 0
+\]
+where \(\theta\) is an unknown parameter.
+
+Given the following claim amounts:
+\begin{center}
+100, 150, 200, 250, 300, 350, 400
+\end{center}
+Calculate the Value-at-Risk (VaR) at the 95\% confidence level for a new claim based on the most. likely value of the unknown parameter. 
+\item A study on the duration of a particular medical treatment's effect is conducted. The treatment effectiveness duration follows an exponential distribution with mean \(\theta\). However, the study faces two constraints:
+
+\begin{enumerate}
+    \item Only patients who experience treatment effectiveness for more than 1 month are included in the study (left truncation at 1 month).
+    \item For some patients, the treatment is still effective at the end of the study, marking these data points as right-censored at 6 months.
+\end{enumerate}
+
+Given the following observed effectiveness durations (in months) and noting that two observations are right-censored:
+\begin{center}
+2, 3, 4, (6+), (6+)
+\end{center}
+Determine the MLE for the mean duration \(\theta\) of the treatment's effectiveness. 
+
+
+
+
+	\end{enumerate}
+\end{document}

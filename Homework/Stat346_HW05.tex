@@ -1,0 +1,104 @@
+\documentclass{article}
+\usepackage{setspace,fullpage,xcolor,enumerate}
+
+
+\begin{document}
+
+\begin{center}
+\textbf{Stat 346 Homework \#5}\\
+\vspace{0.3in}
+\end{center}
+\begin{enumerate}
+\item The following are distributions for the number of claims, $N$, and the loss random variable, $X$. 
+\begin{table}[htp]
+\centering
+\begin{tabular}{c|c}
+$n$ & $Pr(N = n)$ \\ \hline
+0 & 0.35 \\
+1 & 0.20 \\
+2 & 0.25 \\
+3 & 0.20 \\
+\end{tabular}
+\quad
+\begin{tabular}{ccc}
+\begin{tabular}{c|c}
+$x$ & $Pr(X = x)$ \\ \hline
+1 & 0.30 \\
+2 & 0.70 \\
+\end{tabular}
+\end{tabular}
+\end{table}
+
+\smallskip
+Determine the distribution of $S = \sum_{i=1}^N X_i$ where $X_1, ..., X_N$ are independent copies of $X$. \textcolor{red}{[0.35, 0.06, 0.1625, 0.1104, 0.1603, 0.0882, 0.0686]}
+
+\item For the situation in problem 1 :
+ \begin{enumerate}[(a)]
+\item Determine the net stop loss premium for a deductible of 2 using two different methods 
+\begin{enumerate}[(i)]
+\item Directly using the formula \textcolor{red}{[0.97]}
+\item Using the recursive method  \textcolor{red}{[0.97]}
+\end{enumerate}
+\item Determine the net stop loss premium with a deductible of 3 using either method \textcolor{red}{[0.5425]}
+\item Using the linear interpolation method, determine the net stop loss premium with a deductible of 2.35. \textcolor{red}{[0.820]}
+\end{enumerate}
+
+\item The following are distributions for the number of claims, $N$, and the loss random variable, $X$.
+
+\begin{table}[htp]
+\centering
+\begin{tabular}{c|c}
+$n$ & $Pr(N = n)$ \\ \hline
+0 & 0.10 \\
+1 & 0.15 \\
+2 & 0.45 \\
+3 & 0.30 \\
+\end{tabular}
+\quad
+\begin{tabular}{ccc}
+\begin{tabular}{c|c}
+$x$ & $Pr(X = x)$ \\ \hline
+50 & 0.4 \\
+100 & 0.15 \\
+200 & 0.45 \\
+\end{tabular}
+\end{tabular}
+\end{table}
+
+Two modifications are being considered for the policyholders. Plan A would place a policy limit of 150 on the individual claims. This plan would mean that any claim made would be capped at 150 individually. Plan B uses an overall deductible of 100 for aggregate losses, meaning that the policyholder is responsible for the first 100 of total losses and are fully insured for all losses after the total reaches 100. Which plan has a higher expected value of losses. 
+
+\item The number of claims for a certain insurance contract follows the following probability chart:
+\begin{table}[htp]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+$n$ & $Pr(N=n)$ \\ \hline
+0 & 0.20 \\ \hline
+1 & 0.10 \\ \hline
+2 & 0.40 \\ \hline
+3 & 0.30 \\ \hline
+\end{tabular}
+\end{table}
+
+
+Each claim made follows Weibull distribution with $\theta = 50$ and $\tau = .5$. The insurance company is considering limiting the number of claims met to 2. What would be the expected difference in aggregate losses from this change? \textcolor{red}{[30]}
+
+\item Insurance claim severities occur according to a distribution with the following pdf:
+\[f(x) = 24000 \times (x+20)^{-4} \]
+Assume the following coverage modifications:
+\begin{itemize}
+\item The policy has a deductible of 5. 
+\item There is a policy limit of 100
+\item There is a 95\% coinsurance factor
+\item There is an inflation rate applied equal to 4\%. 
+\end{itemize}
+Calculate the following:
+ \begin{enumerate}[(a)]
+\item The expected value of the per loss random variable associated with these policy claims
+\item The expected value of the per payment random variable associated with these policy claims. 
+\end{enumerate}
+
+\item Assume that claim severities follow an exponential distribution with $\theta = 400$, but there is a deductible of 200 per claim. Claim counts follow a zero-modified Poisson distribution where $\lambda = 4$ and $p_0^M = 0.6$. What is the expected value of aggregate losses with these frequency and severity distributions. 
+
+\end{enumerate}
+\end{document} 

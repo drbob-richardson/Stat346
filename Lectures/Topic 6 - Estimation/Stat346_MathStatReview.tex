@@ -1,0 +1,166 @@
+\documentclass[compress,mathserif]{beamer}
+
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsxtra}
+\usepackage{hyperref}
+\usepackage{tensor}
+\usepackage{dsfont}
+
+\mode<presentation> {
+  \usetheme{default}
+  \useoutertheme{infolines}
+  \setbeamercovered{transparent}
+  \beamertemplateballitem
+}
+
+\title[Review of Mathematical Statistics]{Review of Mathematical Statistics}
+\author{Chapter 10}
+\institute[Stat 477]{Stat 477 - Loss Models}
+\date[Brian Hartman - BYU]{}
+\subject{Stat 477}
+
+\begin{document}
+
+\begin{frame}
+ \titlepage
+\end{frame}
+
+\section{Review of mathematical statistics}
+\frame{\frametitle{Concepts in mathematical statistics}
+\begin{itemize}
+\item This is assumed knowledge (please review on your own!).
+\smallskip
+\item Model estimation: parametric versus nonparametric
+\smallskip
+\item Types of estimates: point estimates and interval estimates
+\smallskip
+\item Properties of estimators: unbiasedness, consistency and efficiency
+\smallskip
+\item Hypothesis testing: read section 12.4
+\smallskip
+\item Chapter 12
+\end{itemize}
+}
+
+\section{Model estimation}
+\frame{\frametitle{Parametric versus nonparametric estimation}
+\begin{itemize}
+\item In model estimation, we are interested in estimating the distribution of a random variable $X$.
+\smallskip
+\item For the paramteric approach, the estimation involves determining usually a finite number of parameters:
+\smallskip
+\begin{itemize}
+\item Suppose $X$ has CDF $F(x;\theta)$ and PDF $f(x;\theta)$ where $\theta$ is usually referred to as parameter (which could be a vector of parameters).
+\smallskip
+\item Parameter $\theta$ is usually unknown and must be estimated using observable data. The estimator is typically denoted by $\hat{\theta}$ and is a function of the observable sample.
+\smallskip
+\item Once $\theta$ is estimated, the distribution of $X$ is completely specified.
+\end{itemize}
+\smallskip
+\item In the nonparametric approach, the distribution (either through $F(x)$ or $f(x)$) of $X$ is estimated directly for all values of $x$ without specifying a parametric form. The result is a nonparametric estimate of either of these functions.
+\end{itemize}
+}
+
+\subsection{Point and interval estimates}
+\frame{\frametitle{Point and interval estimates}
+\begin{itemize}
+\item Suppose $X_1,\ldots,X_n$ denote a random sample from the distribution of $X$, with observed values often denoted by $x_1,\ldots,x_n$. Any function $h(X_1,\ldots,X_n)$ is often referred to as a \alert{statistic}.
+\smallskip
+\item A statistic $h(X_1,\ldots,X_n)$ that is used to estimate the parameter $\theta$ is called a \alert{point estimator} and is often denoted by $\hat{\theta}$. Replacing the random sample with the corresponding observed values $x_1,\ldots,x_n$ is often referred to as the \alert{point estimate}.
+\smallskip
+\item In contrast, an \alert{interval estimator} of an unknown parameter is a random interval constructed from the sample data, which covers the true value of $\theta$ at a certain probability level.
+\smallskip
+\item Suppose $\hat{\theta}_L$ and $\hat{\theta}_U$ be two statistics such that $\hat{\theta}_L<\hat{\theta}_U$. The interval $(\hat{\theta}_L,\hat{\theta}_U)$ is said to be a 100$(1-\alpha)\%$ \alert{confidence interval} of $\theta$ if
+\begin{equation*}
+\text{Pr}(\hat{\theta}_L \leq \theta \leq \hat{\theta}_U) \geq 1-\alpha.
+\end{equation*}
+\end{itemize}
+}
+
+\subsection{Normal distribution}
+\frame{\frametitle{Normal distribution}
+Suppose $X_1,\ldots,X_n$ is a random sample from a $\text{N}(\mu,\sigma^2)$ distribution where the variance $\sigma^2$ is unknown. Then:
+\begin{itemize}
+\item The sample mean $\bar{x} = \frac{1}{n} \sum_{i=1}^n x_i$ is a point estimate of the population mean $\mu$.
+\smallskip
+\item A 100$(1-\alpha)\%$ confidence interval of $\mu$ is given by the expression
+\begin{equation*}
+\left(\bar{x} - t_{n-1,\alpha/2} \frac{s}{\sqrt{n}}, \bar{x} + t_{n-1,\alpha/2} \frac{s}{\sqrt{n}}\right),
+\end{equation*}
+where $t_{n-1,\alpha/2}$ is the 100$(1-\alpha/2)$-th quantile of a $t$-distribution with $n-1$ degrees of freedom and $s$ is the sample standard deviation.
+\end{itemize}
+}
+
+\subsection{Properties of an estimator}
+\frame{\frametitle{Properties of an estimator}
+\begin{itemize}
+\item \textbf{Unbiasedness} An estimator $\hat{\theta}$ is said to be \alert{unbiased} if and only if $\text{E}(\hat{\theta}) = \theta$ for all $\theta$. The \alert{bias} is defined to be $\text{Bias}_{\hat{\theta}}(\theta) = \text{E}(\hat{\theta}) - \theta$.
+\smallskip
+\item \textbf{Asymptotically unbiased} Let $\hat{\theta}_n$ be an estimator of $\theta$ based on a sample size of $n$. Then, the estimator is said to \alert{asymptotically unbiased} if
+\begin{equation*}
+\lim_{n \rightarrow \infty} \text{E}(\hat{\theta}) = \theta.
+\end{equation*}
+\item \textbf{Consistency} An estimator $\hat{\theta}_n$ is said to be \alert{(weakly) consistent} if for all $\varepsilon>0$ and $\theta$, we have
+\begin{equation*}
+\lim_{n \rightarrow \infty} \text{Pr} ( |\hat{\theta}_n - \theta| > \varepsilon) = 0.
+\end{equation*}
+\begin{itemize}
+\item A sufficient (but not necessary) condition for weak consistency is that the estimator is asymptotically unbiased and $\lim_{n \rightarrow \infty} \text{Var}(\hat{\theta}_n) = 0$.
+\end{itemize}
+\end{itemize}
+}
+
+\subsection{Illustrative example 1a}
+\frame{\frametitle{Illustrative example 1a}
+Suppose $X$ has the Uniform distribution on $(0,\theta)$ and consider the estimator of $\theta$
+\begin{equation*}
+\hat{\theta}_n = \max(X_1,\ldots,X_n).
+\end{equation*}
+\begin{itemize}
+\item Show that this estimator is asymptotically unbiased.
+\smallskip
+\item Prove that it is also a consistent estimator of $\theta$.
+\end{itemize}
+}
+
+\subsection{Mean-squared error}
+\frame{\frametitle{Mean-squared error}
+\begin{itemize}
+\item \textbf{Mean-squared error} The \alert{mean-squared error (MSE)} of an estimator is defined to be
+\begin{equation*}
+\text{MSE}_{\hat{\theta}}(\theta) = \text{E}[(\hat{\theta} - \theta)^2].
+\end{equation*}
+It can be shown that
+\begin{equation*}
+\text{MSE}_{\hat{\theta}}(\theta) = \text{Var}(\hat{\theta}) + [\text{Bias}_{\hat{\theta}}(\theta)]^2.
+\end{equation*}
+\item \textbf{Efficient estimator} For any two unbiased estimators $\hat{\theta}_a$ and $\hat{\theta}_b$ of $\theta$, $\hat{\theta}_a$ is said to be \alert{more efficient} than $\hat{\theta}_b$ if $\text{Var}(\hat{\theta}_a) < \text{Var}(\hat{\theta}_b)$.
+\smallskip
+\item \textbf{UMVUE} An estimator $\hat{\theta}$ is said to be \alert{uniformly minimum variance unbiased estimator (UMVUE)} if
+\smallskip
+\begin{itemize}
+\item it is unbiased; and
+\smallskip
+\item for any true value of $\theta$, there is no other unbiased estimator that has a smaller variance.
+\end{itemize}
+\end{itemize}
+}
+
+\subsection{Illustrative example 1b}
+\frame{\frametitle{Illustrative example 1b}
+Suppose $X$ has the Uniform distribution on $(0,\theta)$ and consider the estimator of $\theta$
+\begin{equation*}
+\hat{\theta}_n = \max(X_1,\ldots,X_n).
+\end{equation*}
+\begin{itemize}
+\item Calculate the mean and variance of this estimator.
+\smallskip
+\item Evaluate the MSE of this estimator.
+\smallskip
+\item Now consider the two estimators: $\hat{\theta}_a = 2 \bar{X}$ and $\hat{\theta}_b = \frac{n+1}{n} \max(X_1,\ldots,X_n)$. Compare the MSE of these two estimators.
+\end{itemize}
+}
+
+\end{document}

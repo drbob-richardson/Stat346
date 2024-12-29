@@ -1,0 +1,10 @@
+\beamer@sectionintoc {1}{Average Severity}{6}{0}{1}
+\beamer@sectionintoc {2}{Claim Related Expenses}{7}{0}{2}
+\beamer@sectionintoc {3}{Examples of Claim Related Expenses}{8}{0}{3}
+\beamer@sectionintoc {4}{Key Dates in an Insurance Claim}{9}{0}{4}
+\beamer@sectionintoc {5}{Understanding Payments for a Claim}{10}{0}{5}
+\beamer@sectionintoc {6}{Delving into IBNR}{11}{0}{6}
+\beamer@sectionintoc {7}{Review of Loss Ratio}{12}{0}{7}
+\beamer@sectionintoc {8}{Loss Ratio Method}{13}{0}{8}
+\beamer@sectionintoc {9}{Advanced Loss Ratio Method Example}{15}{0}{9}
+\beamer@sectionintoc {10}{Bornhuetter-Ferguson Method}{16}{0}{10}

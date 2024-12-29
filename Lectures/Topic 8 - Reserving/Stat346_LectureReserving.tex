@@ -1,0 +1,271 @@
+\documentclass[compress,mathserif]{beamer}
+
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsxtra}
+\usepackage{hyperref}
+\usepackage{tensor}
+\usepackage{dsfont}
+
+\newcommand{\ntp}{\\ \vspace{1em}}
+
+\mode<presentation> {
+  \usetheme{default}
+  \useoutertheme{infolines}
+  \setbeamercovered{transparent}
+  \beamertemplateballitem
+}
+
+\title{Reserving}
+\author{}
+\institute[Stat 346]{Stat 346 - Short-term Actuarial Math}
+\date[ BYU]{}
+\subject{Stat 346}
+
+\begin{document}
+
+\begin{frame}
+ \titlepage
+\end{frame}
+
+\begin{frame}{Important Ratios}
+    \[ \text{Average Frequency} = \frac{\text{Number of Claims}}{\text{Exposure}} \]
+    \begin{itemize}
+        \item \textbf{Number of Claims:} The total number of claims reported in a given period.
+        \item \textbf{Exposure:} The measure of risk, often represented in terms of policy years, vehicle years, or sum insured, providing a basis for comparing different risk units.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Understanding Exposure}
+
+We know the following about Scott and Joey.
+
+\begin{itemize}
+\item Scott has 2 losses
+\item Joey has 3 losses
+\end{itemize}
+
+Who has the higher likelihood of loss?
+
+\end{frame}
+
+\begin{frame}{Understanding Exposure}
+
+The rest of the story
+\begin{itemize}
+\item Scott has 2 losses in the last 2 weeks
+\item Joey has 3 losses over the last 2 years. 
+\end{itemize}
+
+Who has the higher likelihood of loss?
+
+\end{frame}
+
+\begin{frame}{Understanding Exposure}
+
+\textbf{Exposure} is a basic unit of measure for risk. 
+
+\vspace{1 mm}
+Total Expected Loss = Expected Loss per Exposure $\times$ Exposures
+\vspace{1 mm}
+
+Time is a common exposure level but there could even be better ones
+\begin{itemize}
+\item Discuss car claims in terms of claim per mile driven
+\item Disability claims for a business per employee,  or even by employee hour worked. 
+\end{itemize}
+
+
+\end{frame}
+
+\section{Average Severity}
+
+\begin{frame}{Important Ratios}
+ \[ \text{Average Severity} = \frac{\text{Losses}}{\text{Number of Claims}} \]
+  \[ \text{Pure Premium} =  \frac{\text{Losses}}{\text{Exposure}} = \text{Frequency}\times \text{Severity} \]
+ \[ \text{Loss Ratio} = \frac{\text{Pure Premium}}{\text{Actual Premium}} \]
+Loss ratio is a measure of profitability. If it is low then profits are higher, but there are other things to consider. 
+\end{frame}
+
+\section{Claim Related Expenses}
+
+\begin{frame}{Claim Related Expenses}
+    \textbf{ALAE (Allocated Loss Adjustment Expenses):}
+    \begin{itemize}
+        \item Expenses assignable to a particular claim, including legal costs and expert witness fees.
+    \end{itemize}
+
+    \textbf{ULAE (Unallocated Loss Adjustment Expenses):}
+    \begin{itemize}
+        \item Expenses not easily allocated to a specific claim, such as payroll, rent, and computer expenses for the claims department.
+    \end{itemize}
+
+    \textbf{DCC (Defense and Cost Containment):}
+    \begin{itemize}
+        \item Expenses related to defense litigation and medical cost containment, whether provided internally or externally.
+    \end{itemize}
+
+    \textbf{A\&O (Adjusting and Other):}
+    \begin{itemize}
+        \item Includes all claims adjusting expenses.
+    \end{itemize}
+\end{frame}
+
+\section{Examples of Claim Related Expenses}
+
+\begin{frame}{Examples of Claim Related Expenses}
+    \textbf{ALAE Examples:}
+    \begin{itemize}
+        \item Payment to a law firm for defending a claim.
+        \item Fees for an expert witness in a court case.
+    \end{itemize}
+
+    \textbf{ULAE Examples:}
+    \begin{itemize}
+        \item Salaries of the claims department staff.
+        \item Office rent and utilities for the claims processing center.
+    \end{itemize}
+
+    \textbf{DCC Examples:}
+    \begin{itemize}
+        \item Costs associated with legal defense strategies.
+        \item Expenses for medical reviews to contain claim costs.
+    \end{itemize}
+
+    \textbf{A\&O Examples:}
+    \begin{itemize}
+        \item Costs for claims investigation teams.
+        \item Expenses for claims adjustment software.
+    \end{itemize}
+\end{frame}
+
+\section{Key Dates in an Insurance Claim}
+
+\begin{frame}{Key Dates in an Insurance Claim}
+    Understanding the timeline of an insurance claim is crucial for both insurers and insureds. Here are the key dates involved:
+
+    \begin{itemize}
+        \item \textbf{Accident Date/Occurrence Date:} The date the loss occurred.
+        \item \textbf{Report Date:} The date the insured reports the claim to the insurer.
+        \item \textbf{Claim Create Date:} The date the claim handler enters the claim information into the insurer's data systems.
+        \item \textbf{Transaction Date:} The date a financial transaction is made on a claim.
+        \item \textbf{Settlement Date/Closed Date:} The date the final payment is sent to the insured for a claim, and the case reserve is set to 0.
+        \item \textbf{Reopened Date:} The date when a claim that had been closed is reopened for further investigation or additional payments.
+        \item \textbf{Policy Effective Date:} The date when the insurance policy goes into effect, marking the beginning of the coverage period.
+        \item \textbf{Policy Expiration Date:} The date the policy is no longer effective, marking the end of the coverage period.
+    \end{itemize}
+\end{frame}
+
+\section{Understanding Payments for a Claim}
+
+\begin{frame}{Understanding Payments for a Claim}
+    In managing insurance claims, several financial measures are crucial:
+
+    \begin{description}
+        \item[Ultimate:] The total losses that will eventually be paid out for claims.
+        \item[Paid Losses:] Payments already made to any party for a claim.
+        \item[Case Reserves:] Money set aside for total claim payments to be made.
+        \item[Incurred:] The sum of paid losses and case reserves. Represented as \( \text{Incurred} = \text{Paid} + \text{Case Reserves} \).
+        \item[IBNR (Incurred But Not Reported):] Losses that have been incurred but not yet reported to the insurer.
+    \end{description}
+    Total reserves should equal Ultimate $-$ Paid Losses, the sum of case reserves and IBNR, providing a comprehensive financial overview of the insurer's liability for claims.
+\end{frame}
+
+\section{Delving into IBNR}
+
+\begin{frame}{Delving into IBNR: IBNER and IBNYR}
+    The IBNR reserve can be further classified into two distinct types to better understand and manage latent claim liabilities:
+
+    \begin{description}
+        \item[IBNER (Incurred But Not Enough Reported):] Represents the additional costs expected for claims that have been reported but are underestimated in the current reserves.
+        \item[IBNYR (Incurred But Not Yet Reported):] Refers to claims that have occurred but have not yet been reported to the insurer at all.
+    \end{description}
+One important job of an actuary is to estimate reserves, because these two values are important to know. i.e. IBNR gives actuaries jobs. 
+\end{frame}
+
+\section{Review of Loss Ratio}
+
+\begin{frame}{Review of Loss Ratio}
+    The \textbf{Loss Ratio} is a fundamental concept in insurance, defined as the ratio of total losses paid out by an insurer to the premiums earned. Mathematically, it is represented as:
+    \[ \text{Loss Ratio} = \frac{\text{Total Losses}}{\text{Earned Premium}} = \frac{\text{Loss per Unit of Exposure}}{\text{Premium per Exposure}} \]
+    It serves as a measure of an insurance company's profitability and efficiency in underwriting risks.
+\end{frame}
+
+\section{Loss Ratio Method}
+
+\begin{frame}{Loss Ratio Method (Expected Claims Method)}
+    The Loss Ratio Method, or Expected Claims Method, estimates future claims based on the expected loss ratio and the amount of earned premium. It is expressed as:
+    \[ \text{Ultimate Loss} = \text{Expected Loss Ratio} \times \text{Earned Premium} \]
+    This method is particularly useful when historical data is limited or not reflective of future expectations.
+\end{frame}
+
+\begin{frame}{Example: Loss Ratio Method}
+    Suppose an insurer expects a loss ratio of 60\% for the current policyholders, with \$10,000 in earned premiums for a given year. The estimated claims would be:
+    \[ \text{Estimated Claims} = 0.60 \times 10,000 = \$6,000 \]
+Now suppose that we are three years down the road and only \$5,000 has been paid. Reserves should then be set to $6,000 - 5,000 = 1,000$. 
+\end{frame}
+
+\section{Advanced Loss Ratio Method Example}
+
+\begin{frame}{Loss Ratio Method Example}
+ We are given the following yearly payments and. case reserves for accidents occurring in Year A
+
+    \begin{table}
+    \centering
+    \begin{tabular}{lcc}
+    Year & Payments & Case Reserves \\ \hline
+    Year 1 & \$56,000 & \$32,000 \\
+    Year 2 & \$18,000 & \$20,000 \\
+    Year 3 & \$10,000 & \$12,000 \\
+    \end{tabular}
+    \end{table}
+
+    We also know the loss ratio for accident year A was estimated using the folllowng values
+    \begin{itemize}
+    \item 80 units of exposures. 
+    \item 150 claims expected
+    \item The average severity per claim is \$750
+    \item The total earned premium is \$140,000
+    \end{itemize}
+    What is the current IBNR for accident year A after year A+2?
+   
+\end{frame}
+
+
+\section{Bornhuetter-Ferguson Method}
+
+\begin{frame}{Bornhuetter-Ferguson Method}
+    The Bornhuetter-Ferguson Method combines one major element from a claims triangle and one major element from the loss ratio method. The idea is that     \[ \text{Expected Ultimate Loss} = \text{Expected Loss Ratio} \times \text{Earned Premium} \]
+    but also 
+     \[ \text{Expected Ultimate Loss} = \text{Paid Losses} * \prod_{i = 1}^\infty f_i\]
+where $f_i$ is the $i$-th loss development factor. Reserves are then calculated using 
+\[ \text{Reserves} = \text{Expected Ultimate Loss} -  \text{Paid Losses}\]
+\[\text{Reserves} = \text{Expected Loss Ratio} \times \text{Earned Premium}\times \left(1-\frac{1}{f_{ult}}\right)\] where $f_{ult} =  \prod_{i = 1}^\infty f_i$
+    \end{frame}
+
+\begin{frame}{Example: Bornhuetter-Ferguson Method}
+    Consider \$3,000 in paid claims, an expected loss ratio of 50\%, \$10,000 in earned premiums, and a loss development factor of 1.5. The ultimate claims would be:
+    \[ \text{Expected Ultimate Loss} = 0.50 \times 10,000  = 5,000 \]
+Then reserved would be \[\text{Reserves} = 5000 \left( 1 - \frac{1}{1.5}\right) = 1666.67\]
+
+what would the loss ratio method say?
+\end{frame}
+
+
+\begin{frame}{Example: All Three Methods}
+You have chosen the following paid loss development factors to model the lower half of a claims paid triangle. 
+\begin{table}
+\begin{tabular}{ccccc}
+$1/0$ & $2/1$ & $3/2$ & $4/3$ & $\infty/4$ \\ \hline
+1.41 & 1.22 & 1.16 & 1.08 & 1.04
+\end{tabular}
+\end{table}
+
+You are setting reserves for the annual report in calendar year 7. For accident year 6 you have paid-to-date claims of \$420,000. The earned premium calculated for accident year 6 is is \$1,000,000 and the expected loss ratio is 0.6. Determine the estimated loss reserve using the chain ladder. method the loss ratio method, and the Bornhuetter Ferguson method. 
+
+\end{frame}
+
+
+
+\end{document}
